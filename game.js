@@ -290,12 +290,20 @@ function finishQuiz() {
   const result = resultsData.results[resultKey];
   quizState.finalResult = { key: resultKey, ...result };
   saveQuizSession(quizState);
-  renderResult(quizState.finalResult);
+
+  /* Show result screen first so the card enter animation plays before
+     content renders (avoids layout jump when async images load mid-animation). */
   showScreen("result");
-  /* re-trigger enter animation */
+
+  /* Re-trigger enter animation: remove + force reflow + restore */
   els.resultCard.style.animation = "none";
-  els.resultCard.offsetHeight;
+  void els.resultCard.offsetHeight;
   els.resultCard.style.animation = "";
+
+  /* Render content after animation starts (small delay so card is visible first) */
+  requestAnimationFrame(() => {
+    renderResult(quizState.finalResult);
+  });
 }
 
 function buildResultKey(scores) {
@@ -439,14 +447,20 @@ async function saveResultAsImage() {
 
   try {
     const card = els.resultCard;
-    const canvas = await html2canvas(card, {
+    /* Mobile: use scale 1 to avoid huge canvas (card ≈ 1200px tall × 2 = 2400px = OOM).
+       Desktop: keep up to devicePixelRatio for crisp output, capped at 2. */
+    const isMobile = window.innerWidth <= 480;
+    const scale = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
+
+    /* Overall timeout: html2canvas has no built-in timeout for rendering.
+       On slow mobile devices the polyfill can hang indefinitely. */
+    const canvasPromise = html2canvas(card, {
       backgroundColor: null,
-      /* keep scale modest — toBlob is single-threaded and slow on huge canvases */
-      scale: Math.min(window.devicePixelRatio || 1, 2),
+      scale: scale,
       useCORS: true,
       allowTaint: true,
       logging: false,
-      imageTimeout: 8000,
+      imageTimeout: 5000,
       /* Strip CSS animations on the cloned DOM so html2canvas doesn't capture
          the keyframe's "from" state (opacity:0, translateY) as the final frame. */
       onclone: (clonedDoc) => {
@@ -460,6 +474,11 @@ async function saveResultAsImage() {
       }
     });
 
+    const canvas = await Promise.race([
+      canvasPromise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 15000))
+    ]);
+
     const result = quizState.finalResult;
     const filename = `transparent-star-${result.key}.png`;
 
@@ -468,8 +487,10 @@ async function saveResultAsImage() {
 
     const file = new File([blob], filename, { type: "image/png" });
 
-    /* Try the native Web Share API first (mobile / PWA) */
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    /* Try the native Web Share API first (mobile / PWA).
+       On many mobile browsers canShare({files}) returns false even when share() works,
+       so we try share() directly and fall back on failure. */
+    if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
       try {
         await navigator.share({
           files: [file],
@@ -490,7 +511,9 @@ async function saveResultAsImage() {
       }
     }
 
-    /* Desktop / fallback: trigger a download */
+    /* Desktop / fallback: trigger a download.
+       Mobile browsers that block programmatic downloads will silently fail here,
+       but the Web Share API above covers the common mobile path. */
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
