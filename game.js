@@ -439,30 +439,32 @@ async function saveResultAsImage() {
   const result = quizState.finalResult;
   const isMobile = window.innerWidth <= 480;
 
-  if (typeof html2canvas === "undefined") {
-    setSaveButtonLabel("unavailable");
-    setTimeout(() => setSaveButtonLabel(), 1800);
-    return;
-  }
-
   setSaveButtonLabel("saving");
   els.saveBtn.disabled = true;
 
   try {
+    /* ── Mobile: Canvas 2D compositing (no html2canvas) ── */
+    if (isMobile) {
+      await saveOnMobile(result);
+      return;
+    }
+
+    /* ── Desktop: html2canvas full card capture ── */
+    if (typeof html2canvas === "undefined") {
+      setSaveButtonLabel("unavailable");
+      setTimeout(() => setSaveButtonLabel(), 1800);
+      return;
+    }
+
     const card = els.resultCard;
-
-    /* Mobile: low scale + strip backdrop-filter (html2canvas chokes on it).
-       Desktop: full devicePixelRatio for crisp output. */
-    const scale = isMobile ? 0.7 : Math.min(window.devicePixelRatio || 1, 2);
-
     const canvas = await Promise.race([
       html2canvas(card, {
         backgroundColor: null,
-        scale: scale,
+        scale: Math.min(window.devicePixelRatio || 1, 2),
         useCORS: true,
-        allowTaint: false,
+        allowTaint: true,
         logging: false,
-        imageTimeout: 6000,
+        imageTimeout: 8000,
         onclone: (clonedDoc) => {
           const clonedCard = clonedDoc.getElementById("resultCard");
           if (clonedCard) {
@@ -470,15 +472,10 @@ async function saveResultAsImage() {
             clonedCard.style.transform = "none";
             clonedCard.style.opacity = "1";
           }
-          /* Remove backdrop-filter — common html2canvas crash cause on mobile */
-          clonedDoc.querySelectorAll("*").forEach((el) => {
-            el.style.backdropFilter = "none";
-            el.style.webkitBackdropFilter = "none";
-          });
           clonedDoc.querySelectorAll("[id='starCanvas']").forEach((el) => el.remove());
         }
       }),
-      new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 25000))
+      new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 20000))
     ]);
 
     const filename = `transparent-star-${result.key}.png`;
@@ -487,7 +484,6 @@ async function saveResultAsImage() {
 
     const file = new File([blob], filename, { type: "image/png" });
 
-    /* Try Web Share API with the card image */
     if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
       try {
         await navigator.share({
@@ -501,14 +497,10 @@ async function saveResultAsImage() {
         setTimeout(() => setSaveButtonLabel(), 2000);
         return;
       } catch (err) {
-        if (err && err.name === "AbortError") {
-          setSaveButtonLabel();
-          return;
-        }
+        if (err && err.name === "AbortError") { setSaveButtonLabel(); return; }
       }
     }
 
-    /* Desktop: trigger download */
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -520,38 +512,203 @@ async function saveResultAsImage() {
     setSaveButtonLabel("saved");
     setTimeout(() => setSaveButtonLabel(), 2000);
   } catch (err) {
-    console.error("html2canvas failed:", err);
-
-    /* ── Mobile fallback: character image only ── */
-    if (isMobile) {
-      try {
-        const response = await fetch(result.image);
-        if (response.ok) {
-          const blob = await response.blob();
-          const file = new File([blob], `transparent-star-${result.key}.webp`, { type: blob.type || "image/webp" });
-          if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-            await navigator.share({
-              files: [file],
-              title: pickLocalized(result, "name"),
-              text: currentLang === "cn"
-                ? `我是透明星居民：${result.nameCn || result.name}`
-                : `My Transparent Star resident: ${result.name}`
-            });
-            setSaveButtonLabel("shared");
-            setTimeout(() => setSaveButtonLabel(), 2000);
-            return;
-          }
-        }
-      } catch (fallbackErr) {
-        console.error("Mobile fallback also failed:", fallbackErr);
-      }
-    }
-
+    console.error(err);
     setSaveButtonLabel("error");
     setTimeout(() => setSaveButtonLabel(), 2200);
   } finally {
     els.saveBtn.disabled = false;
   }
+}
+
+/* ── Mobile: draw share card with Canvas 2D ── */
+async function saveOnMobile(result) {
+  const W = 420;
+  const H = 680;
+  const canvas = document.createElement("canvas");
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext("2d");
+
+  /* Theme colour from the card's data-theme attribute */
+  const theme = els.resultCard.getAttribute("data-theme") || "teal";
+  const colours = {
+    teal:   ["#1a4a47", "#2d6e6a"],
+    coral:  ["#6b2e26", "#96423a"],
+    gold:   ["#5c4a1e", "#8a7030"],
+    violet: ["#332d5c", "#50448a"],
+    slate:  ["#2a3040", "#445060"],
+    rose:   ["#5c2a3a", "#8a4058"],
+    lime:   ["#2a4a1e", "#447030"],
+    sky:    ["#1a3a5c", "#2a508a"]
+  };
+  const [bgDark, bgLight] = colours[theme] || colours.teal;
+
+  /* Gradient background */
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, bgLight);
+  grad.addColorStop(0.55, bgDark);
+  grad.addColorStop(1, "#0e0f1c");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  /* Draw character image from the DOM */
+  const imgEl = els.resultImage.querySelector("img");
+  if (imgEl && imgEl.complete && imgEl.naturalWidth > 0) {
+    /* Image dimensions: character arts are 1024×1536 (2:3 portrait) */
+    const imgW = imgEl.naturalWidth;
+    const imgH = imgEl.naturalHeight;
+    /* Scale to fill card width, position at top */
+    const drawW = W;
+    const drawH = (imgH / imgW) * W;
+    const drawY = -20; /* slight upward shift to show more of character */
+    ctx.drawImage(imgEl, 0, drawY, drawW, drawH);
+  }
+
+  /* Dark overlay at bottom for text legibility */
+  const overlay = ctx.createLinearGradient(0, H * 0.45, 0, H);
+  overlay.addColorStop(0, "transparent");
+  overlay.addColorStop(0.5, "rgba(14,15,28,0.7)");
+  overlay.addColorStop(1, "rgba(14,15,28,0.95)");
+  ctx.fillStyle = overlay;
+  ctx.fillRect(0, H * 0.45, W, H * 0.55);
+
+  /* Type code badge (top-right) */
+  const typeCode = getTypeCode(result.key);
+  ctx.fillStyle = "rgba(10,10,18,0.8)";
+  ctx.strokeStyle = "rgba(255,255,255,0.18)";
+  ctx.lineWidth = 1;
+  roundRect(ctx, W - 70, 12, 58, 26, 6);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = "rgba(255,250,230,0.9)";
+  ctx.font = "bold 14px 'Space Grotesk', sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText(typeCode, W - 41, 30);
+
+  /* Flavour text (vertical, left side) */
+  const traitCN = result.traitCn || result.trait || "";
+  const strengthCN = result.strengthCn || result.strength || "";
+  ctx.save();
+  ctx.fillStyle = "rgba(255,255,255,0.6)";
+  ctx.font = "bold 20px 'Noto Serif TC', serif";
+  ctx.textAlign = "left";
+  /* Draw vertically */
+  const flavourY = 100;
+  for (let i = 0; i < traitCN.length; i++) {
+    ctx.fillText(traitCN[i], 16, flavourY + i * 26);
+  }
+  for (let i = 0; i < strengthCN.length; i++) {
+    ctx.fillText(strengthCN[i], 16, flavourY + (traitCN.length + i) * 26);
+  }
+  ctx.restore();
+
+  /* Occupation + Name */
+  const occupation = pickLocalized(result, "occupation");
+  const name = pickLocalized(result, "name");
+  ctx.fillStyle = "rgba(255,255,255,0.75)";
+  ctx.font = "600 13px 'Space Grotesk', sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText(occupation, W / 2, H - 140);
+  ctx.fillStyle = "#fff";
+  ctx.font = "900 40px 'Noto Serif TC', serif";
+  ctx.fillText(name, W / 2, H - 100);
+
+  /* Trait badge */
+  const trait = pickLocalized(result, "trait");
+  const strength = pickLocalized(result, "strength");
+  const badgeY = H - 55;
+  /* Left badge */
+  roundRect(ctx, 60, badgeY - 22, 120, 40, 20);
+  ctx.fillStyle = "rgba(255,255,255,0.18)";
+  ctx.fill();
+  ctx.strokeStyle = "rgba(255,255,255,0.3)";
+  ctx.stroke();
+  ctx.fillStyle = "rgba(255,255,255,0.5)";
+  ctx.font = "700 9px 'Space Grotesk', sans-serif";
+  ctx.fillText(currentLang === "cn" ? "特質" : "Trait", 120, badgeY - 8);
+  ctx.fillStyle = "#fff";
+  ctx.font = "900 17px 'Noto Serif TC', serif";
+  ctx.fillText(trait, 120, badgeY + 10);
+
+  /* Right badge */
+  roundRect(ctx, W - 180, badgeY - 22, 120, 40, 20);
+  ctx.fillStyle = "rgba(255,255,255,0.18)";
+  ctx.fill();
+  ctx.strokeStyle = "rgba(255,255,255,0.3)";
+  ctx.stroke();
+  ctx.fillStyle = "rgba(255,255,255,0.5)";
+  ctx.font = "700 9px 'Space Grotesk', sans-serif";
+  ctx.fillText(currentLang === "cn" ? "優勢" : "Strength", W - 120, badgeY - 8);
+  ctx.fillStyle = "#fff";
+  ctx.font = "900 17px 'Noto Serif TC', serif";
+  ctx.fillText(strength, W - 120, badgeY + 10);
+
+  /* Footer */
+  ctx.fillStyle = "rgba(255,255,255,0.25)";
+  ctx.font = "600 10px 'Space Grotesk', sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText("透明星居民測驗 · Transparent Star Quiz", W / 2, H - 8);
+
+  /* Export & share */
+  const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png", 0.9));
+  if (!blob) throw new Error("toBlob failed");
+
+  const filename = `transparent-star-${result.key}.png`;
+  const file = new File([blob], filename, { type: "image/png" });
+  const shareText = currentLang === "cn"
+    ? `我是透明星居民：${result.nameCn || result.name}`
+    : `My Transparent Star resident: ${result.name}`;
+
+  /* Try share with image */
+  if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+    try {
+      await navigator.share({ files: [file], title: name, text: shareText });
+      setSaveButtonLabel("shared");
+      setTimeout(() => setSaveButtonLabel(), 2000);
+      return;
+    } catch (err) {
+      if (err && err.name === "AbortError") { setSaveButtonLabel(); return; }
+    }
+  }
+
+  /* Fallback: text-only share */
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: name, text: shareText });
+      setSaveButtonLabel("shared");
+      setTimeout(() => setSaveButtonLabel(), 2000);
+      return;
+    } catch (err) {
+      if (err && err.name === "AbortError") { setSaveButtonLabel(); return; }
+    }
+  }
+
+  /* Last resort: download link */
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  setSaveButtonLabel("saved");
+  setTimeout(() => setSaveButtonLabel(), 2000);
+}
+
+/* Helper: rounded rectangle path */
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.arcTo(x + w, y, x + w, y + r, r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+  ctx.lineTo(x + r, y + h);
+  ctx.arcTo(x, y + h, x, y + h - r, r);
+  ctx.lineTo(x, y + r);
+  ctx.arcTo(x, y, x + r, y, r);
+  ctx.closePath();
 }
 
 function showScreen(name) {
