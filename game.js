@@ -437,85 +437,8 @@ function setSaveButtonLabel(state) {
 async function saveResultAsImage() {
   if (!quizState?.finalResult) return;
   const result = quizState.finalResult;
-
-  /* ── Mobile path: skip html2canvas entirely ── */
   const isMobile = window.innerWidth <= 480;
-  if (isMobile) {
-    setSaveButtonLabel("saving");
-    els.saveBtn.disabled = true;
 
-    try {
-      /* Fetch the character image directly — no canvas rendering */
-      const imagePath = result.image;
-      const response = await fetch(imagePath);
-      if (!response.ok) throw new Error("Image fetch failed");
-      const blob = await response.blob();
-
-      const filename = `transparent-star-${result.key}.webp`;
-      const file = new File([blob], filename, { type: blob.type || "image/webp" });
-      const shareText = currentLang === "cn"
-        ? `我是透明星居民：${result.nameCn || result.name}`
-        : `My Transparent Star resident: ${result.name}`;
-
-      /* Try Web Share API with the image file */
-      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-        try {
-          await navigator.share({
-            files: [file],
-            title: pickLocalized(result, "name"),
-            text: shareText
-          });
-          setSaveButtonLabel("shared");
-          setTimeout(() => setSaveButtonLabel(), 2000);
-          return;
-        } catch (err) {
-          if (err && err.name === "AbortError") {
-            setSaveButtonLabel();
-            return;
-          }
-        }
-      }
-
-      /* Fallback: share text only (some browsers don't support file sharing) */
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: pickLocalized(result, "name"),
-            text: shareText
-          });
-          setSaveButtonLabel("shared");
-          setTimeout(() => setSaveButtonLabel(), 2000);
-          return;
-        } catch (err) {
-          if (err && err.name === "AbortError") {
-            setSaveButtonLabel();
-            return;
-          }
-        }
-      }
-
-      /* Last resort: trigger download of the character image */
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      setSaveButtonLabel("saved");
-      setTimeout(() => setSaveButtonLabel(), 2000);
-    } catch (err) {
-      console.error(err);
-      setSaveButtonLabel("error");
-      setTimeout(() => setSaveButtonLabel(), 2200);
-    } finally {
-      els.saveBtn.disabled = false;
-    }
-    return;
-  }
-
-  /* ── Desktop path: html2canvas (works fine with more memory) ── */
   if (typeof html2canvas === "undefined") {
     setSaveButtonLabel("unavailable");
     setTimeout(() => setSaveButtonLabel(), 1800);
@@ -527,31 +450,45 @@ async function saveResultAsImage() {
 
   try {
     const card = els.resultCard;
-    const canvas = await html2canvas(card, {
-      backgroundColor: null,
-      scale: Math.min(window.devicePixelRatio || 1, 2),
-      useCORS: true,
-      allowTaint: true,
-      logging: false,
-      imageTimeout: 8000,
-      onclone: (clonedDoc) => {
-        const clonedCard = clonedDoc.getElementById("resultCard");
-        if (clonedCard) {
-          clonedCard.style.animation = "none";
-          clonedCard.style.transform = "none";
-          clonedCard.style.opacity = "1";
+
+    /* Mobile: low scale + strip backdrop-filter (html2canvas chokes on it).
+       Desktop: full devicePixelRatio for crisp output. */
+    const scale = isMobile ? 0.7 : Math.min(window.devicePixelRatio || 1, 2);
+
+    const canvas = await Promise.race([
+      html2canvas(card, {
+        backgroundColor: null,
+        scale: scale,
+        useCORS: true,
+        allowTaint: false,
+        logging: false,
+        imageTimeout: 6000,
+        onclone: (clonedDoc) => {
+          const clonedCard = clonedDoc.getElementById("resultCard");
+          if (clonedCard) {
+            clonedCard.style.animation = "none";
+            clonedCard.style.transform = "none";
+            clonedCard.style.opacity = "1";
+          }
+          /* Remove backdrop-filter — common html2canvas crash cause on mobile */
+          clonedDoc.querySelectorAll("*").forEach((el) => {
+            el.style.backdropFilter = "none";
+            el.style.webkitBackdropFilter = "none";
+          });
+          clonedDoc.querySelectorAll("[id='starCanvas']").forEach((el) => el.remove());
         }
-        clonedDoc.querySelectorAll("[id='starCanvas']").forEach((el) => el.remove());
-      }
-    });
+      }),
+      new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 25000))
+    ]);
 
     const filename = `transparent-star-${result.key}.png`;
-    const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png", 0.95));
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png", 0.92));
     if (!blob) throw new Error("toBlob failed");
 
     const file = new File([blob], filename, { type: "image/png" });
 
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    /* Try Web Share API with the card image */
+    if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
       try {
         await navigator.share({
           files: [file],
@@ -571,6 +508,7 @@ async function saveResultAsImage() {
       }
     }
 
+    /* Desktop: trigger download */
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -582,7 +520,33 @@ async function saveResultAsImage() {
     setSaveButtonLabel("saved");
     setTimeout(() => setSaveButtonLabel(), 2000);
   } catch (err) {
-    console.error(err);
+    console.error("html2canvas failed:", err);
+
+    /* ── Mobile fallback: character image only ── */
+    if (isMobile) {
+      try {
+        const response = await fetch(result.image);
+        if (response.ok) {
+          const blob = await response.blob();
+          const file = new File([blob], `transparent-star-${result.key}.webp`, { type: blob.type || "image/webp" });
+          if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: pickLocalized(result, "name"),
+              text: currentLang === "cn"
+                ? `我是透明星居民：${result.nameCn || result.name}`
+                : `My Transparent Star resident: ${result.name}`
+            });
+            setSaveButtonLabel("shared");
+            setTimeout(() => setSaveButtonLabel(), 2000);
+            return;
+          }
+        }
+      } catch (fallbackErr) {
+        console.error("Mobile fallback also failed:", fallbackErr);
+      }
+    }
+
     setSaveButtonLabel("error");
     setTimeout(() => setSaveButtonLabel(), 2200);
   } finally {
