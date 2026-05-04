@@ -520,137 +520,224 @@ async function saveResultAsImage() {
   }
 }
 
-/* ── Mobile: draw share card with Canvas 2D ── */
+/* ── Mobile: draw full card with Canvas 2D (long screenshot) ── */
 async function saveOnMobile(result) {
-  const W = 420;
-  const H = 680;
+  const W = 560;  /* 1.33× quality bump from 420 */
+  const padX = 20;
+  const padBottom = 24;
+
+  /* ── Measure content height ── */
+  const ctxM = document.createElement("canvas").getContext("2d");
+
+  /* Character image: 1024×1536 (2:3), scaled to card width */
+  const imgH = (1536 / 1024) * W;  /* ≈ 840px */
+  const imgTop = W * 0.02;         /* slight shift down for framing */
+
+  /* Name section */
+  const nameFont = "900 42px 'Noto Serif TC', serif";
+  const occFont = "600 13px 'Space Grotesk', sans-serif";
+  ctxM.font = occFont;
+  const occH = 20;
+  ctxM.font = nameFont;
+  const nameH = 50;
+  const nameSectionH = occH + nameH + 16;
+
+  /* Story — wrap text */
+  const dayTitle = pickLocalized(result, "dayTitle");
+  const dayStory = pickLocalized(result, "dayStory");
+  ctxM.font = "600 12px 'Space Grotesk', sans-serif";
+  const titleH = 24;
+  ctxM.font = "15px 'Noto Serif TC', serif";
+  const storyLines = wrapText(ctxM, dayStory, W - padX * 2);
+  const storyH = titleH + storyLines.length * 24 + 8;
+
+  /* Signature moves */
+  const moves = currentLang === "cn" && result.signatureMovesCn
+    ? result.signatureMovesCn : result.signatureMoves;
+  const movesH = moves && moves.length ? 20 + moves.length * 32 + 24 : 0;
+
+  /* Total height */
+  const heroEnd = imgTop + imgH;
+  const textStart = heroEnd * 0.55;  /* gradient overlay starts at 55% of hero */
+  const nameY = textStart + 20;
+  const badgesY = nameY + nameSectionH + 8;
+  const storyY = badgesY + 60;
+  const movesY = storyY + storyH;
+  const H = movesY + movesH + padBottom;
+
+  /* ── Draw ── */
   const canvas = document.createElement("canvas");
   canvas.width = W;
-  canvas.height = H;
+  canvas.height = Math.ceil(H);
   const ctx = canvas.getContext("2d");
 
-  /* Theme colour from the card's data-theme attribute */
+  /* Theme colours */
   const theme = els.resultCard.getAttribute("data-theme") || "teal";
   const colours = {
-    teal:   ["#1a4a47", "#2d6e6a"],
-    coral:  ["#6b2e26", "#96423a"],
-    gold:   ["#5c4a1e", "#8a7030"],
-    violet: ["#332d5c", "#50448a"],
-    slate:  ["#2a3040", "#445060"],
-    rose:   ["#5c2a3a", "#8a4058"],
-    lime:   ["#2a4a1e", "#447030"],
-    sky:    ["#1a3a5c", "#2a508a"]
+    teal:   ["#1c524e", "#34827c"],
+    coral:  ["#78342c", "#a84e42"],
+    gold:   ["#6a5620", "#a08038"],
+    violet: ["#3c3468", "#5c5098"],
+    slate:  ["#2e3648", "#4a566c"],
+    rose:   ["#6a3042", "#9c4862"],
+    lime:   ["#2e5220", "#4a8034"],
+    sky:    ["#1c4268", "#2a5c98"]
   };
   const [bgDark, bgLight] = colours[theme] || colours.teal;
 
-  /* Gradient background */
+  /* Full background */
   const grad = ctx.createLinearGradient(0, 0, 0, H);
   grad.addColorStop(0, bgLight);
-  grad.addColorStop(0.55, bgDark);
-  grad.addColorStop(1, "#0e0f1c");
+  grad.addColorStop(0.45, bgDark);
+  grad.addColorStop(0.7, "#0e0f1c");
+  grad.addColorStop(1, "#08090f");
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
 
-  /* Draw character image from the DOM */
+  /* Draw character image */
   const imgEl = els.resultImage.querySelector("img");
   if (imgEl && imgEl.complete && imgEl.naturalWidth > 0) {
-    /* Image dimensions: character arts are 1024×1536 (2:3 portrait) */
-    const imgW = imgEl.naturalWidth;
-    const imgH = imgEl.naturalHeight;
-    /* Scale to fill card width, position at top */
     const drawW = W;
-    const drawH = (imgH / imgW) * W;
-    const drawY = -20; /* slight upward shift to show more of character */
-    ctx.drawImage(imgEl, 0, drawY, drawW, drawH);
+    const drawH = imgH;
+    ctx.drawImage(imgEl, 0, imgTop, drawW, drawH);
   }
 
-  /* Dark overlay at bottom for text legibility */
-  const overlay = ctx.createLinearGradient(0, H * 0.45, 0, H);
+  /* Gradient overlay for text legibility */
+  const overlay = ctx.createLinearGradient(0, heroEnd * 0.48, 0, heroEnd * 0.62);
   overlay.addColorStop(0, "transparent");
-  overlay.addColorStop(0.5, "rgba(14,15,28,0.7)");
-  overlay.addColorStop(1, "rgba(14,15,28,0.95)");
+  overlay.addColorStop(1, "#0e0f1c");
   ctx.fillStyle = overlay;
-  ctx.fillRect(0, H * 0.45, W, H * 0.55);
+  ctx.fillRect(0, heroEnd * 0.48, W, heroEnd * 0.14);
 
-  /* Type code badge (top-right) */
+  /* Solid dark below */
+  ctx.fillStyle = "#0e0f1c";
+  ctx.fillRect(0, heroEnd * 0.60, W, H - heroEnd * 0.60);
+
+  /* Type code badge (top-right, on hero) */
   const typeCode = getTypeCode(result.key);
   ctx.fillStyle = "rgba(10,10,18,0.8)";
   ctx.strokeStyle = "rgba(255,255,255,0.18)";
   ctx.lineWidth = 1;
-  roundRect(ctx, W - 70, 12, 58, 26, 6);
+  roundRect(ctx, W - 80, 16, 64, 28, 6);
   ctx.fill();
   ctx.stroke();
-  ctx.fillStyle = "rgba(255,250,230,0.9)";
-  ctx.font = "bold 14px 'Space Grotesk', sans-serif";
+  ctx.fillStyle = "rgba(255,250,230,0.92)";
+  ctx.font = "bold 15px 'Space Grotesk', sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText(typeCode, W - 41, 30);
+  ctx.fillText(typeCode, W - 48, 35);
 
-  /* Flavour text (vertical, left side) */
+  /* Flavour text (vertical, left side on hero) */
   const traitCN = result.traitCn || result.trait || "";
   const strengthCN = result.strengthCn || result.strength || "";
   ctx.save();
-  ctx.fillStyle = "rgba(255,255,255,0.6)";
-  ctx.font = "bold 20px 'Noto Serif TC', serif";
+  ctx.fillStyle = "rgba(10,10,18,0.55)";
+  ctx.font = "bold 22px 'Noto Serif TC', serif";
   ctx.textAlign = "left";
-  /* Draw vertically */
-  const flavourY = 100;
-  for (let i = 0; i < traitCN.length; i++) {
-    ctx.fillText(traitCN[i], 16, flavourY + i * 26);
-  }
-  for (let i = 0; i < strengthCN.length; i++) {
-    ctx.fillText(strengthCN[i], 16, flavourY + (traitCN.length + i) * 26);
+  const flavourY = imgTop + 80;
+  const allChars = [...traitCN, ...strengthCN];
+  for (let i = 0; i < allChars.length && (flavourY + i * 28) < heroEnd * 0.58; i++) {
+    ctx.fillText(allChars[i], 18, flavourY + i * 28);
   }
   ctx.restore();
 
-  /* Occupation + Name */
-  const occupation = pickLocalized(result, "occupation");
-  const name = pickLocalized(result, "name");
-  ctx.fillStyle = "rgba(255,255,255,0.75)";
-  ctx.font = "600 13px 'Space Grotesk', sans-serif";
-  ctx.textAlign = "center";
-  ctx.fillText(occupation, W / 2, H - 140);
-  ctx.fillStyle = "#fff";
-  ctx.font = "900 40px 'Noto Serif TC', serif";
-  ctx.fillText(name, W / 2, H - 100);
+  /* ── NAME BAR ── */
+  ctx.fillStyle = bgDark;
+  ctx.fillRect(0, textStart - 8, W, nameSectionH + badgesY - textStart + 60);
 
-  /* Trait badge */
+  ctx.fillStyle = "rgba(255,255,255,0.78)";
+  ctx.font = occFont;
+  ctx.textAlign = "center";
+  const occupation = pickLocalized(result, "occupation");
+  ctx.fillText(occupation, W / 2, nameY);
+
+  ctx.fillStyle = "#fff";
+  ctx.font = nameFont;
+  const name = pickLocalized(result, "name");
+  ctx.fillText(name, W / 2, nameY + occH + 4);
+
+  /* ── BADGES ── */
   const trait = pickLocalized(result, "trait");
   const strength = pickLocalized(result, "strength");
-  const badgeY = H - 55;
-  /* Left badge */
-  roundRect(ctx, 60, badgeY - 22, 120, 40, 20);
-  ctx.fillStyle = "rgba(255,255,255,0.18)";
+  const bw = 140, bh = 44, br = 22;
+  const bx1 = (W / 2) - bw - 10;
+  const bx2 = (W / 2) + 10;
+
+  /* Trait */
+  roundRect(ctx, bx1, badgesY, bw, bh, br);
+  ctx.fillStyle = "rgba(255,255,255,0.2)";
   ctx.fill();
-  ctx.strokeStyle = "rgba(255,255,255,0.3)";
+  ctx.strokeStyle = "rgba(255,255,255,0.35)";
+  ctx.lineWidth = 1.5;
   ctx.stroke();
   ctx.fillStyle = "rgba(255,255,255,0.5)";
-  ctx.font = "700 9px 'Space Grotesk', sans-serif";
-  ctx.fillText(currentLang === "cn" ? "特質" : "Trait", 120, badgeY - 8);
-  ctx.fillStyle = "#fff";
-  ctx.font = "900 17px 'Noto Serif TC', serif";
-  ctx.fillText(trait, 120, badgeY + 10);
+  ctx.font = "700 10px 'Space Grotesk', sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText(currentLang === "cn" ? "特質" : "Trait", bx1 + bw / 2, badgesY + 14);
+  ctx.fillStyle = "rgba(10,10,18,0.9)";
+  ctx.font = "900 20px 'Noto Serif TC', serif";
+  ctx.fillText(trait, bx1 + bw / 2, badgesY + 34);
 
-  /* Right badge */
-  roundRect(ctx, W - 180, badgeY - 22, 120, 40, 20);
-  ctx.fillStyle = "rgba(255,255,255,0.18)";
+  /* Strength */
+  roundRect(ctx, bx2, badgesY, bw, bh, br);
+  ctx.fillStyle = "rgba(255,255,255,0.2)";
   ctx.fill();
-  ctx.strokeStyle = "rgba(255,255,255,0.3)";
+  ctx.strokeStyle = "rgba(255,255,255,0.35)";
+  ctx.lineWidth = 1.5;
   ctx.stroke();
   ctx.fillStyle = "rgba(255,255,255,0.5)";
-  ctx.font = "700 9px 'Space Grotesk', sans-serif";
-  ctx.fillText(currentLang === "cn" ? "優勢" : "Strength", W - 120, badgeY - 8);
-  ctx.fillStyle = "#fff";
-  ctx.font = "900 17px 'Noto Serif TC', serif";
-  ctx.fillText(strength, W - 120, badgeY + 10);
+  ctx.font = "700 10px 'Space Grotesk', sans-serif";
+  ctx.fillText(currentLang === "cn" ? "優勢" : "Strength", bx2 + bw / 2, badgesY + 14);
+  ctx.fillStyle = "rgba(10,10,18,0.9)";
+  ctx.font = "900 20px 'Noto Serif TC', serif";
+  ctx.fillText(strength, bx2 + bw / 2, badgesY + 34);
 
-  /* Footer */
-  ctx.fillStyle = "rgba(255,255,255,0.25)";
+  /* ── STORY ── */
+  ctx.textAlign = "left";
+  ctx.fillStyle = bgLight;
+  ctx.font = "700 12px 'Space Grotesk', sans-serif";
+  ctx.fillText("★", padX, storyY);
+  ctx.fillText(dayTitle, padX + 16, storyY);
+
+  ctx.fillStyle = "rgba(240,234,216,0.72)";
+  ctx.font = "15px 'Noto Serif TC', serif";
+  let sy = storyY + titleH;
+  for (const line of storyLines) {
+    ctx.fillText(line, padX, sy);
+    sy += 24;
+  }
+
+  /* ── SIGNATURE MOVES ── */
+  if (moves && moves.length) {
+    ctx.fillStyle = bgLight;
+    ctx.font = "700 12px 'Space Grotesk', sans-serif";
+    ctx.textAlign = "left";
+    const movesLabel = currentLang === "cn" ? "拿手好戲" : "Signature Moves";
+    ctx.fillText("★", padX, movesY);
+    ctx.fillText(movesLabel, padX + 16, movesY);
+
+    ctx.font = "14px 'Space Grotesk', sans-serif";
+    ctx.fillStyle = "rgba(240,234,216,0.72)";
+    let my = movesY + 24;
+    for (let i = 0; i < moves.length; i++) {
+      const num = String(i + 1).padStart(2, "0");
+      /* Number badge */
+      ctx.fillStyle = bgLight;
+      ctx.fillText(num, padX, my);
+      /* Move text */
+      ctx.fillStyle = "rgba(240,234,216,0.72)";
+      ctx.fillText(moves[i], padX + 28, my);
+      my += 32;
+    }
+  }
+
+  /* ── FOOTER ── */
+  ctx.fillStyle = "rgba(255,255,255,0.2)";
   ctx.font = "600 10px 'Space Grotesk', sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText("透明星居民測驗 · Transparent Star Quiz", W / 2, H - 8);
+  ctx.fillText("透明星居民測驗 · Transparent Star Quiz", W / 2, H - 10);
 
-  /* Export & share */
-  const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png", 0.9));
+  /* ── Export & share ── */
+  const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
   if (!blob) throw new Error("toBlob failed");
 
   const filename = `transparent-star-${result.key}.png`;
@@ -694,6 +781,28 @@ async function saveOnMobile(result) {
   URL.revokeObjectURL(url);
   setSaveButtonLabel("saved");
   setTimeout(() => setSaveButtonLabel(), 2000);
+}
+
+/* Wrap text to fit within maxWidth, returns array of lines */
+function wrapText(ctx, text, maxWidth) {
+  if (!text) return [];
+  const lines = [];
+  /* For CJK text, break at any character; for Latin, break at word boundaries */
+  const isCJK = /[\u4e00-\u9fff\u3400-\u4dbf]/.test(text);
+  const words = isCJK ? [...text] : text.split(" ");
+  let line = "";
+
+  for (const word of words) {
+    const test = line ? line + (isCJK ? "" : " ") + word : word;
+    if (ctx.measureText(test).width > maxWidth && line) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = test;
+    }
+  }
+  if (line) lines.push(line);
+  return lines;
 }
 
 /* Helper: rounded rectangle path */
