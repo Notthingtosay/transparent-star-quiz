@@ -1,0 +1,404 @@
+{
+  "results": {
+    "visible_active_connected_true": {
+      "name": "Sincere Host",
+      "nameCn": "真誠暖場型",
+      "occupation": "Public Echo Hall Conversation Guide",
+      "occupationCn": "公共回聲廳引談員",
+      "image": "assets/results/真誠暖場型.webp",
+      "trait": "Sincere",
+      "traitCn": "真誠",
+      "strength": "Empathy",
+      "strengthCn": "共情",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "At 9:00 a.m., you open the doors of the Public Echo Hall and find several residents sitting with low Presence Values above their heads. Everyone is looking down at their phones, waiting for someone else to begin. You do not start with a speech. You dim the room, pour water for a girl in the corner whose value has fallen to 7, and ask what she almost sent last night. She says three messages went unanswered and laughs like she is apologizing for feeling hurt. You slide the microphone closer and say, \"Then let this room hear the first one properly.\" After she reads it, someone in the back nods. Another person says, \"I know that feeling.\" Your badge lights up, but the real relief is simpler: the room has a human voice again.",
+      "dayStoryCn": "早上九點，你推開公共回聲廳的門，裡面坐著幾個存在值偏低的居民。大家都低頭看手機，誰也不想先開口。你沒有立刻說教，只是把燈調暖，給角落那個數值只剩 7 的女孩倒了一杯水。她說昨晚發了三條消息都沒人回，越想越覺得自己很可笑。你把麥克風推近一點，輕聲說：「那我們先讓這個房間聽完第一條。」她讀完後，後排有人點頭，另一個人補了一句「我也懂」。你胸前的小燈牌慢慢亮起來，但你真正鬆口氣，不是因為數字漲了，而是因為房間終於有了人的聲音。",
+      "signatureMoves": [
+        "Saying the first sentence",
+        "Warming up a room that has gone cold",
+        "Holding emotions others are afraid to say"
+      ],
+      "signatureMovesCn": [
+        "說出第一句話",
+        "把冷掉的場子重新變暖",
+        "接住沒人敢說出口的情緒"
+      ]
+    },
+    "visible_active_connected_safe": {
+      "name": "Mood Keeper",
+      "nameCn": "氣氛照顧型",
+      "occupation": "Social Stability Buffer",
+      "occupationCn": "社交穩定局緩衝員",
+      "image": "assets/results/氣氛照顧型.webp",
+      "trait": "Considerate",
+      "traitCn": "體貼",
+      "strength": "Mediation",
+      "strengthCn": "圓場",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "Your tablet turns red before breakfast: three group chats have gone silent, one birthday post has no replies, and a voice message is hanging in the pinned zone. You open the worst thread. Someone wrote, \"Forget it, it does not matter,\" and the chat has been empty for fifteen minutes. You do not push them to explain. You send one gentle reaction, then add, \"I just saw this. It actually matters.\" A few seconds later, another resident replies, and the bubbles start rising again. The system marks the mood as restored, and your Presence Value climbs by 2. At lunch, you almost post, \"I am tired too,\" but change it to \"Busy day haha.\" You are good at taking care of the room. Sometimes you wish the room could notice you without being told.",
+      "dayStoryCn": "你的平板一早就跳出紅色提醒：三個群聊冷場，一個生日祝福帖沒人接，還有一段語音被晾在置頂區。你點開最僵的那個頻道，有人發了句「算了，不重要」，下面空了十五分鐘。你沒有直接追問，只先發一個不誇張的表情，又補一句：「我剛看到，這個其實挺重要的。」幾秒後，有人跟著回覆，聊天氣泡重新浮起來。系統提示氣氛恢復，你的存在值漲了 2 點。午休時，你也想發一句「我其實有點累」，最後改成「今天好忙哈哈」。你很會照顧大家，也偶爾希望有人不用你開口，就能看出你也需要被照顧。",
+      "signatureMoves": [
+        "Adding the sentence everyone needed",
+        "Keeping awkward silence from spreading",
+        "Settling the room before it falls apart"
+      ],
+      "signatureMovesCn": [
+        "補上剛好的那句話",
+        "讓尷尬不繼續擴散",
+        "把大家的情緒先穩住"
+      ]
+    },
+    "visible_active_solo_true": {
+      "name": "High-Frequency Speaker",
+      "nameCn": "高頻表達型",
+      "occupation": "Personal Signal Tower Broadcaster",
+      "occupationCn": "個人信號塔主播",
+      "image": "assets/results/高頻表達型.webp",
+      "trait": "Intense",
+      "traitCn": "熱烈",
+      "strength": "Expression",
+      "strengthCn": "表達",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "You live in Signal Tower 17, where the day begins with one ritual: you face the information stream and say, \"Morning. I am still here.\" Coffee foam, a strange subway dream, a cashier's offhand joke, all of it becomes small signal spheres sent from the tower roof. By 10:00 a.m., your heat ranking enters the district top ten. You grin, then immediately wonder what to post next. At dusk, your longest confession of the day receives only one \"haha.\" The two letters sit there like a power outage. You stare at them for a long time, then press record again: \"Last one today. Really the last one.\" You know you can be hard to stop. You also know some people only answer the world because you shouted first.",
+      "dayStoryCn": "你住在高頻區第 17 號信號塔。醒來第一件事，是對著信息流說：「早，我還在。」早餐的咖啡、地鐵裡的怪夢、便利店阿姨說錯的一句話，都會被你整理成一顆顆小信號球，從塔頂發出去。上午十點，你的熱度衝進本區前十，你笑了一下，又立刻開始想下一條。傍晚，你看到今天最長的一段自白只收到一個「哈哈」，胸口像突然斷電。你盯著那兩個字看了很久，還是按下錄音鍵：「今天最後一條，真的最後一條。」你知道自己有點停不下來，但你也知道，很多人就是靠你先喊一聲，才想起自己可以回應世界。",
+      "signatureMoves": [
+        "Turning emotions into sentences",
+        "Turning daily fragments into signals",
+        "Keeping a voice alive inside silence"
+      ],
+      "signatureMovesCn": [
+        "把情緒說成句子",
+        "把日常碎片變成信號",
+        "在沉默裡繼續發聲"
+      ]
+    },
+    "visible_active_solo_safe": {
+      "name": "Image Curator",
+      "nameCn": "形象經營型",
+      "occupation": "Homepage Profile Curator",
+      "occupationCn": "首頁檔案策展人",
+      "image": "assets/results/形象經營型.webp",
+      "trait": "Polished",
+      "traitCn": "精緻",
+      "strength": "Presentation",
+      "strengthCn": "呈現",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "When the mirror wall of the Homepage Office lights up, you begin the first Presence Profile of the day. A client posted seventeen emotional updates last night and now wants to look \"normal again.\" You remove the sharpest lines, choose a better-lit side portrait, and rearrange his tags: stable, hardworking, easy to work with. Within minutes, his homepage looks clean, and his Presence Value stops sliding. He thanks you. You answer, \"This version is easier to be seen.\" Before leaving, you check your own homepage. Everything is polished: the photo, the captions, the timing, the small proof that you are doing fine. In the elevator reflection, you suddenly remember the original picture. Your smile was crooked, your hair was messy, and somehow that version looked more like you.",
+      "dayStoryCn": "首頁管理所的鏡面屏一亮，你就開始整理今天的第一份存在檔案。客戶昨晚情緒上頭發了十七條動態，早上後悔了，請你幫他「看起來正常一點」。你刪掉太用力的句子，換上光線更穩的側臉照，重新排列標籤：穩定、努力、可合作。幾分鐘後，他的首頁變得乾淨，存在值也停止下滑。他對你說謝謝，你熟練地回一句「這樣更適合被看見」。下班前，你檢查自己的首頁，一切都很完美。只是電梯門合上的瞬間，你突然想起原圖裡的自己其實笑得沒那麼標準。那個版本很亂，卻好像更像你。",
+      "signatureMoves": [
+        "Turning mess into composure",
+        "Finding the angle most ready to be seen",
+        "Making a chaotic life look clean"
+      ],
+      "signatureMovesCn": [
+        "把狼狽修成體面",
+        "找到最適合被看見的角度",
+        "讓混亂生活變成乾淨首頁"
+      ]
+    },
+    "visible_quiet_connected_true": {
+      "name": "Low-Frequency Glow",
+      "nameCn": "低頻發光型",
+      "occupation": "Slow Letter Courier",
+      "occupationCn": "慢信郵差",
+      "image": "assets/results/低頻發光型.webp",
+      "trait": "Quiet",
+      "traitCn": "安靜",
+      "strength": "Endurance",
+      "strengthCn": "持久",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "You carry a cloth mailbag and walk the slowest routes in the city. The Delayed Delivery Office does not handle trending posts. It sends the long messages that cannot survive the information stream. Today you have three letters: an apology rewritten thirteen times, a confession saved in drafts for six years, and one line that says, \"I actually remember what you said that day.\" These letters rarely make Presence Values jump. Rankings almost never notice them. At 4:00 p.m., you knock on the final door. The receiver stands still for a long time, rubbing the edge of the envelope. \"So he remembered,\" she says. You dim your hand lamp and continue down the street. You do not appear often, but when you do, it feels like someone left a small light on for another person.",
+      "dayStoryCn": "你背著布郵包，走的是城市裡最慢的路。延遲投遞局不送熱搜，只送那些不適合進信息流的長信。今天有三封：一封改了十三遍的道歉，一封在草稿箱躺了六年的告白，還有一封只有一句「那天你說的，我其實記得」。這些信不會讓存在值立刻暴漲，也很少被排行榜看見。下午四點，你敲開最後一扇門，收信人愣了很久，手指一直摩挲信封邊角。她小聲說：「原來他還記得。」你把小手燈調暗，繼續往下一條街走。你不常出現，但每次出現，都像有人在夜裡替另一個人留了一盞燈。",
+      "signatureMoves": [
+        "Delivering important words to the right person",
+        "Giving slow replies real weight",
+        "Leaving long echoes in low frequency"
+      ],
+      "signatureMovesCn": [
+        "把重要的話送到對的人手裡",
+        "讓慢回覆也有重量",
+        "在低頻裡留下長久回聲"
+      ]
+    },
+    "visible_quiet_connected_safe": {
+      "name": "Polite Online Resident",
+      "nameCn": "禮貌在線型",
+      "occupation": "Relationship Service Desk Operator",
+      "occupationCn": "關係服務台接線員",
+      "image": "assets/results/禮貌在線型.webp",
+      "trait": "Gentle",
+      "traitCn": "溫和",
+      "strength": "Reliability",
+      "strengthCn": "穩定",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "The Relationship Service Desk has a line by 8:00 a.m. One resident needs to answer a three-day-old message. Another wants to make \"um\" sound less cold. Someone else does not know how to end a conversation without hurting anyone. You put on your headset and say, \"Start with sorry, I just saw this, then add one concrete response.\" You know a hundred ways to be kind without creating pressure. You also know how much caution can hide behind a period. At noon, a friend asks if you are doing okay. You almost answer honestly, then type, \"I'm fine, just busy.\" It is polite, smooth, and very far away. At closing time, you clear your own unread messages one by one. You make many people feel safe, but closeness does not always need to be so well behaved.",
+      "dayStoryCn": "關係服務台八點就開始排隊。有人想補回三天前沒回的消息，有人想把「嗯」改得不那麼冷，也有人不知道怎麼結束一段尷尬寒暄。你戴上耳麥，溫和地說：「可以先說不好意思剛看到，再補一句具體回應。」你熟悉一百種不冒犯人的說法，也知道每個句號後面藏著多少小心。中午，朋友問你最近還好嗎，你本來想認真回答，最後只打了「還好呀」。那句話很禮貌，也很遠。晚上關機前，你把自己的未回消息一條條清掉，像把桌面擦乾淨。你讓很多人安心，卻偶爾忘了，真正的親近不一定要永遠得體。",
+      "signatureMoves": [
+        "Making late replies less awkward",
+        "Keeping relationships steady with care",
+        "Making people feel safe around you"
+      ],
+      "signatureMovesCn": [
+        "把遲到的回覆變得不尷尬",
+        "用禮貌維持關係",
+        "讓人相處起來很安心"
+      ]
+    },
+    "visible_quiet_solo_true": {
+      "name": "Sudden Bright Signal",
+      "nameCn": "偶爾爆亮型",
+      "occupation": "Night Signal Keeper",
+      "occupationCn": "夜間信號員",
+      "image": "assets/results/偶爾爆亮型.webp",
+      "trait": "Restrained",
+      "traitCn": "克制",
+      "strength": "Impact",
+      "strengthCn": "爆發",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "Your shift begins after dark. Transparent Star is too loud in the daytime; everyone is busy refreshing themselves. At night, the signal towers on the edge of the city reveal the real failures. You are usually quiet. You walk the perimeter, checking weak flashes with your low-beam scanner. At 1:00 a.m., you find a dying tower holding one sentence that has been suppressed for too long. If you open the bright valve, the whole city will see it for a few seconds, and your own Presence Value will swing violently. You stand at the control panel for ten seconds. Then you press it. A yellow signal cuts across the sky, and people stop scrolling. You immediately want to take it back, but the light has already reached where it needed to go. You are frightened and relieved at the same time.",
+      "dayStoryCn": "你的工作從晚上開始。白天的透明星太吵，所有人都在刷新自己；夜裡，城市邊緣的信號塔才會露出真正的故障。你平時話不多，只低頭巡查那些微弱閃爍。凌晨一點，你發現一座快熄滅的塔裡卡著一句被壓很久的真話。你知道按下強光閥，會讓全城短暫看見它，也會讓你的存在值劇烈波動。你站在控制台前猶豫了十秒，還是按了。亮黃色信號劃過夜空，很多人停下滑動屏幕。你立刻想撤回，可光已經到了它該去的地方。那一刻你有點害怕，也有點痛快：原來一句真話真的能照亮一整片夜。",
+      "signatureMoves": [
+        "Telling the truth at the exact moment",
+        "Lighting up a whole room with one sentence",
+        "Turning silence into a strong signal"
+      ],
+      "signatureMovesCn": [
+        "在關鍵時刻說真話",
+        "用一句話照亮整個場面",
+        "把沉默變成強信號"
+      ]
+    },
+    "visible_quiet_solo_safe": {
+      "name": "Careful Speaker",
+      "nameCn": "謹慎發言型",
+      "occupation": "Speech Risk Reviewer",
+      "occupationCn": "發言風險審核師",
+      "image": "assets/results/謹慎發言型.webp",
+      "trait": "Cautious",
+      "traitCn": "謹慎",
+      "strength": "Judgment",
+      "strengthCn": "判斷",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "The Speech Risk Review Room is always quiet. Every sentence about to be posted passes your desk first. This one is too fragile. That one could be misunderstood. This paragraph shows too much need. You are fast and accurate, able to turn a stormy confession into something no one can attack. In the afternoon, a resident sends you a draft: \"I actually want you to remember me.\" You pause, almost approving it as it is. Then you change it to, \"I may be quiet for a while.\" At night, you review your own status. The original line says, \"I am not holding up well.\" You revise it to, \"Things are okay lately.\" Then you do not post it at all. Your drawer is full of safe sentences. They are not wrong. That is exactly why they feel sad.",
+      "dayStoryCn": "發言風險審核室永遠很安靜。每一句即將發出的話，都會先被送到你面前：這句太脆弱，那句容易被誤解，這段情緒太明顯。你很快，也很準，能把一段可能引發風暴的真心話改成誰看了都不會出錯的文字。下午，一位居民把草稿交給你，原句是「我其實很想被你們記得」。你停了一下，差點按下保留原文。最後你改成「最近有點忙，先潛一下」。晚上，你審核自己的動態，原句是「我有點撐不住了」，你改成「最近還行」。草稿沒有發出去。抽屜裡已經有很多句安全的話，它們都沒錯，也都很可惜。",
+      "signatureMoves": [
+        "Making risky speech safe",
+        "Spotting social storms early",
+        "Pressing pause before sending"
+      ],
+      "signatureMovesCn": [
+        "把高風險發言改安全",
+        "提前看見社交風暴",
+        "在發送前按下暫停鍵"
+      ]
+    },
+    "hidden_active_connected_true": {
+      "name": "Backstage Carer",
+      "nameCn": "幕後關心型",
+      "occupation": "Transparent Zone Patrol Worker",
+      "occupationCn": "透明區巡看員",
+      "image": "assets/results/幕後關心型.webp",
+      "trait": "Tender",
+      "traitCn": "溫柔",
+      "strength": "Awareness",
+      "strengthCn": "察覺",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "The Transparent Border is not bright like the city center. Residents here have very low Presence Values. Some are still sending messages. Some have stopped waiting for replies. You patrol with a low-light torch because too much brightness can scare people away. At 11:00 a.m., you see a boy sitting at the end of a station platform. His value is 3. He opens a chat box, closes it, opens it again, and closes it again. You do not walk over and ask what is wrong. Instead, you repair the broken seat lamp beside him and leave a soft reminder on his phone: \"Someone has seen you.\" His number does not rise immediately, but he looks up. From a distance, you understand that some care should not press too hard. It should stay lit without demanding an answer.",
+      "dayStoryCn": "透明邊境不像城市中心那麼亮。這裡的居民存在值都很低，有些還在努力發消息，有些已經不再等回覆。你拿著低亮度手電巡查，怕光太強會嚇到他們。上午十一點，你看見一個男孩坐在站台盡頭，數值只剩 3。他打開聊天框又關上，反覆好幾次。你沒有走過去問「怎麼了」，只是替他把旁邊壞掉的座位燈修好，又在他的手機裡留下一條微光提醒：「有人看見你了。」他的數字沒有立刻上升，但他抬頭看了看周圍。你站在遠處，忽然覺得有些關心不能太用力。它要像小夜燈一樣，亮著，但不逼人回答。",
+      "signatureMoves": [
+        "Noticing people who are almost ignored",
+        "Leaving reminders that do not disturb",
+        "Guarding small lights at the edge"
+      ],
+      "signatureMovesCn": [
+        "發現快要被忽略的人",
+        "留下一條不打擾的提醒",
+        "在邊緣地帶守住微光"
+      ]
+    },
+    "hidden_active_connected_safe": {
+      "name": "Group Chat Filler",
+      "nameCn": "群聊補位型",
+      "occupation": "Awkward Silence Repair Worker",
+      "occupationCn": "冷場補丁工",
+      "image": "assets/results/群聊補位型.webp",
+      "trait": "Practical",
+      "traitCn": "實在",
+      "strength": "Support",
+      "strengthCn": "補位",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "Your toolkit does not hold screwdrivers. It holds reaction stickers, like buttons, short reply templates, and small patches for broken chat bubbles. At 10:00 a.m., the system sends you to repair a group chat that has cracked open. Someone posted a serious sentence, and the space below it has been empty for eight minutes. You know that if no one answers, this person may never say that kind of thing again. You add a careful like, then type, \"I get this.\" Soon another person follows. The group starts moving again. Your name is not mentioned, and your Presence Value rises by only 1. During lunch, you watch the same group become lively by the window of a convenience store. You almost leave it. Then someone types, \"Anyone here?\" You sigh and answer, \"Here.\"",
+      "dayStoryCn": "你的工具包裡沒有螺絲刀，只有表情包貼紙、點讚按鈕、短回覆模板和聊天氣泡補丁。上午十點，系統派你去修一個裂開的群聊。有人發了一句很認真的話，下面空了八分鐘。你知道再不補，這個人下次可能就不說了。你貼上一個不敷衍的讚，又補一句：「這個我懂。」很快，另一個人也接上了，群聊重新流動。你的名字沒有被提起，存在值只漲了 1。午飯時你坐在便利店靠窗的位置，看著自己剛補好的群又熱鬧起來。你突然有點想退出，但下一秒又有人發了句「有人嗎」。你嘆口氣，還是回了：「在。」",
+      "signatureMoves": [
+        "Catching words no one replied to",
+        "Patching awkward silence",
+        "Keeping warmth alive through small interactions"
+      ],
+      "signatureMovesCn": [
+        "接住沒人回的話",
+        "給冷場打補丁",
+        "用小互動維持溫度"
+      ]
+    },
+    "hidden_active_solo_true": {
+      "name": "Clear Observer",
+      "nameCn": "清醒觀察型",
+      "occupation": "Information Stream Recorder",
+      "occupationCn": "信息流旁觀記錄員",
+      "image": "assets/results/清醒觀察型.webp",
+      "trait": "Clear",
+      "traitCn": "清醒",
+      "strength": "Observation",
+      "strengthCn": "觀察",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "You stand beside the information-stream waterfall in a blue-gray coat, notebook in hand. Updates, comments, read receipts, and reaction stickers fall constantly, bright as rain that never stops. Your job is to record which words were actually seen and which people were simply washed away. In the morning, you notice a careful long post sink in three seconds. You also notice someone who has liked other people's posts for seven days without posting anything of their own. Others think you are detached. In truth, you are only clear-eyed: some noise is just data bumping into data. It does not mean anyone has arrived. At dusk, you close your notebook and add one line: Today, 43 people were seen; 12 people were merely scrolled past. You keep that difference because the city keeps forgetting it.",
+      "dayStoryCn": "你站在信息流瀑布旁，穿著藍灰色長風衣，手裡拿著記錄本。瀑布裡不斷落下動態、留言、已讀標記和表情包，亮得像一場不會停的雨。你的工作是記錄哪些話被看見，哪些人被沖走。上午，你注意到一條很用心的長文三秒就沉底，也看到一個人連續七天只給別人點讚，卻不發自己的東西。旁人以為你冷淡，其實你只是看得太清楚：有些熱鬧只是數據互相碰撞，裡面不一定真的有人抵達。傍晚，你合上本子，在旁邊加了一行小字：今天有 43 個人被看見，有 12 個人只是被刷過。這個差別，你一直記得。",
+      "signatureMoves": [
+        "Seeing emptiness behind the noise",
+        "Recording people and words swept away",
+        "Telling interaction apart from connection"
+      ],
+      "signatureMovesCn": [
+        "看見熱鬧背後的空洞",
+        "記錄被沖走的人和話",
+        "分清互動和真正的連接"
+      ]
+    },
+    "hidden_active_solo_safe": {
+      "name": "Data Drifter",
+      "nameCn": "數據游走型",
+      "occupation": "Data Dust Collector",
+      "occupationCn": "數據塵埃採集員",
+      "image": "assets/results/數據游走型.webp",
+      "trait": "Flexible",
+      "traitCn": "靈活",
+      "strength": "Adaptation",
+      "strengthCn": "適應",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "You work in the city's backend, where there are no complete people, only tiny traces: 2.3 seconds of hesitation, a skipped post, a deleted reply, a message read but not answered, a midnight open-and-exit. You carry a transparent bottle and collect these grains of data dust one by one. The system likes you because you know how to move through its gaps. It knows where you paused today and which message made you hesitate. It does not know whether your chest hurt at that moment. In the afternoon, you stop for four seconds at the ranking entrance, almost checking your place. Instead, you collect those four seconds too and label them: almost wanted to be seen. Then you slip into the next side passage. Being recorded is not the same as being understood, and you know that better than anyone.",
+      "dayStoryCn": "你在城市後台工作，那裡沒有完整的人，只有細小痕跡：停留 2.3 秒、滑過、撤回、已讀不回、半夜點開又退出。你背著透明採集瓶，把這些數據塵埃一粒粒收起來。系統很喜歡你，因為你知道怎麼在它的縫隙裡移動。它知道你今天在哪裡停過，知道你對哪條消息猶豫了很久，卻不知道你那一刻心裡到底疼不疼。下午，你在排行榜入口停了 4 秒，差點想點進去看看自己。最後你把那 4 秒也收進瓶子，標註為：差點想被看見。你笑了一下，轉身鑽進下一條暗道。被記錄不等於被理解，這件事你比誰都清楚。",
+      "signatureMoves": [
+        "Moving through system gaps",
+        "Collecting traces others miss",
+        "Leaving data without giving yourself away"
+      ],
+      "signatureMovesCn": [
+        "在系統縫隙裡穿梭",
+        "收集別人看不見的痕跡",
+        "留下數據但不交出自己"
+      ]
+    },
+    "hidden_quiet_connected_true": {
+      "name": "Echo Keeper",
+      "nameCn": "回響收藏型",
+      "occupation": "Echo Archive Keeper",
+      "occupationCn": "回聲檔案保管員",
+      "image": "assets/results/回響收藏型.webp",
+      "trait": "Nostalgic",
+      "traitCn": "念舊",
+      "strength": "Memory",
+      "strengthCn": "記憶",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "The Echo Archive is quiet except for soft vibrations inside glass jars. Each jar holds a sentence that no one answered at the time, but that still mattered. Today you receive a message from ten years ago: \"If you see this, it means I still wanted to tell you.\" It was not held then. Now it has become a small echo sphere. Wearing white gloves, you clean it and place it on the shelf marked late but still valid. In the afternoon, a resident asks what use expired words can have. You do not lecture. You let him listen to an old sphere. Inside it is a very small voice saying, \"I always remembered.\" He stays quiet for a long time. Not every sentence is understood when it is sent. Some must survive first, then wait for someone to return.",
+      "dayStoryCn": "回聲檔案館很安靜，只有玻璃瓶裡的聲波輕輕震動。每個瓶子裡，都存著一句當時沒人回、但其實很重要的話。今天你收到一條十年前的留言：「如果你看到這個，就說明我還是想告訴你。」它當年沒有被接住，現在變成一顆很小的回聲球。你戴上白手套，把它擦乾淨，放到「遲來但仍有效」的架子上。下午，有個居民來問過期的話還有什麼用。你沒有講大道理，只讓他聽了一顆舊球。那裡面是一句很輕的「我一直記得」。他聽完後沉默很久。你知道，不是所有話都會在發出的那一刻被理解，有些話要先被保存下來，等人準備好再回來。",
+      "signatureMoves": [
+        "Saving words no one caught",
+        "Leaving echoes for silence",
+        "Returning old words at the right time"
+      ],
+      "signatureMovesCn": [
+        "保存沒人接住的話",
+        "替沉默留下回聲",
+        "在合適的時候把話還回去"
+      ]
+    },
+    "hidden_quiet_connected_safe": {
+      "name": "Gentle Exit",
+      "nameCn": "溫和退場型",
+      "occupation": "Notification Noise Reducer",
+      "occupationCn": "通知降噪師",
+      "image": "assets/results/溫和退場型.webp",
+      "trait": "Calm",
+      "traitCn": "從容",
+      "strength": "Boundary",
+      "strengthCn": "邊界",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "Your studio wall is covered with knobs. Each one controls a kind of sound: group chat alerts, ranking pushes, friend updates, unread red dots, automatic check-ins. In the morning, a resident arrives and says he does not want to disappear, but he also cannot keep being dragged around by every notification. You do not shut the world off for him. You turn the first knob a little to the left. The group chat is still there, but it no longer shakes every minute. The ranking still exists, but it is no longer pinned. Friend updates move to the afternoon. Later, he returns and says he tasted lunch for the first time in weeks. You save the setting. At night, you turn down one of your own reminders. Not because you do not care, but because sleep is also a way to stay alive.",
+      "dayStoryCn": "你的工作室掛滿旋鈕，每一個都連著一種聲音：群聊提醒、排行榜推送、好友動態、未讀紅點、自動問候。早上來了一位居民，他說不想突然消失，也不想繼續被所有通知拖著走。你沒有替他一鍵關閉世界，只把第一個旋鈕往左轉了一點。群聊還在，但不再每分鐘震動；排行榜還在，但不再置頂；好友動態還在，只是退到下午再看。下午，他回來說，自己第一次在午飯時真的吃到了飯的味道。你笑著把設定保存。晚上，你也替自己關掉了一個提醒，不是不在乎，是想好好睡一覺。透明星總叫人在線，而你最擅長讓人有分寸地離開一下。",
+      "signatureMoves": [
+        "Turning the world down a little",
+        "Helping people exit overload gently",
+        "Leaving without slamming the door"
+      ],
+      "signatureMovesCn": [
+        "把世界調小聲一點",
+        "幫人慢慢退出過量社交",
+        "不摔門也能離開"
+      ]
+    },
+    "hidden_quiet_solo_true": {
+      "name": "Undefined Type",
+      "nameCn": "不被定義型",
+      "occupation": "No-Metric Zone Resident",
+      "occupationCn": "無數值區居民",
+      "image": "assets/results/不被定義型.webp",
+      "trait": "Free",
+      "traitCn": "自由",
+      "strength": "Selfhood",
+      "strengthCn": "自洽",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "You live in the No-Metric Zone at the edge of the city. There are no rankings, no automatic reminders, and no Presence Value hanging above your head. When you wake up, you do not check how much of yourself is left. You boil water, read a book, and trim the dead leaves from the plant by the window. Far away, the city keeps flashing; people's numbers jump like neon. Sometimes visitors ask, \"Aren't you scared if no one counts you?\" You think about it and say, \"At first, yes. Later I noticed the wind still blows without a number.\" In the afternoon, someone who escaped the rankings sits on your repaired chair and cries for a while. You do not ask what place they were in. You hand them water. Life outside the scoreboard is not blank. It is a beginning with less noise.",
+      "dayStoryCn": "你住在城市邊界的無數值區。那裡沒有排行榜，沒有自動提醒，也沒有懸在頭頂的 Presence Value。早上醒來，你不用先確認自己還剩多少，也不用想今天靠什麼把數字刷回去。你煮水、看書、給窗邊植物剪掉枯葉。遠處城市還在閃，很多人的數字像霓虹一樣跳動。偶爾有人來問你：「不被計算，不會害怕嗎？」你想了想，說：「剛開始會。後來發現，風不會因為沒有數字就不吹。」下午，你坐在門口修一把舊椅子，有個從排行榜逃出來的人坐下哭了一會兒。你沒有問他排第幾，只遞給他一杯水。你讓人知道，離開計分板之後，生活不是空白，而是重新開始。",
+      "signatureMoves": [
+        "Existing without numerical proof",
+        "Learning to live again in quiet",
+        "Walking away from the ranking board"
+      ],
+      "signatureMovesCn": [
+        "不用數字證明自己",
+        "在安靜裡重新生活",
+        "從排行榜旁邊走開"
+      ]
+    },
+    "hidden_quiet_solo_safe": {
+      "name": "Quietly Fading Type",
+      "nameCn": "安靜隱身型",
+      "occupation": "Empty Seat Keeper",
+      "occupationCn": "空座位看守人",
+      "image": "assets/results/安靜隱身型.webp",
+      "trait": "Quiet",
+      "traitCn": "安靜",
+      "strength": "Endurance",
+      "strengthCn": "承受",
+      "dayTitle": "Your Day on Transparent Star",
+      "dayTitleCn": "你在透明星的一天",
+      "dayStory": "You look after the places that slowly become empty: the subway corner seat, the last row of a classroom, the desk by the office window. Beside every empty place is a record of someone who was never properly said goodbye to. In the morning, you wipe a plastic subway seat clean. The log says a person once sat here and posted good morning every day. Then he missed one day, then one week, and eventually no one asked. You are not a frightening transparent person. You simply understand the feeling of fading too slowly for others to notice. In the afternoon, a girl whose value is almost zero sits beside you and asks whether being forgotten means she never existed. You push the logbook toward her. \"No,\" you say. \"Some traces are just too light. Someone has to hold them down.\"",
+      "dayStoryCn": "你看守那些慢慢空下來的位置：地鐵角落的座位、教室最後一排、辦公室靠窗的工位。每個空位旁邊，都有一段沒被好好告別的記錄。上午，你擦乾淨一張地鐵座椅，記錄簿上寫著：這裡曾經坐過一個每天發早安的人，後來他少發一天，又少發一週，最後沒人再問起。你不是嚇人的透明人，只是太懂那種慢慢淡出去的感覺。下午，一個數值快歸零的女孩坐到你旁邊，問是不是沒人記得就等於沒有存在過。你把記錄簿推給她看，說：「不是。只是有些痕跡太輕，需要有人替它壓住。」",
+      "signatureMoves": [
+        "Remembering seats left empty",
+        "Carrying emotions without making noise",
+        "Guarding traces no one else noticed"
+      ],
+      "signatureMovesCn": [
+        "記住被空下來的位置",
+        "安靜地消化很多情緒",
+        "在沒人注意時守住痕跡"
+      ]
+    }
+  }
+}

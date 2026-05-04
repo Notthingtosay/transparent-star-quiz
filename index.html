@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Which Transparent Star Resident Are You?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%231a1a2e'/%3E%3Ccircle cx='32' cy='32' r='10' fill='none' stroke='%23c9b66d' stroke-width='1.5'/%3E%3Ccircle cx='32' cy='32' r='3' fill='%23c9b66d'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css?v=17" />
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas-pro@1.5.8/dist/html2canvas-pro.min.js" defer></script>
+  </head>
+  <body>
+    <div id="app" class="app">
+
+      <!-- Star field canvas -->
+      <canvas id="starCanvas" aria-hidden="true"></canvas>
+
+      <!-- Language toggle -->
+      <button id="langToggle" class="lang-toggle" type="button" aria-label="Switch language">
+        <span data-lang-en>中文</span><span data-lang-cn>EN</span>
+      </button>
+
+      <!-- ═══ START SCREEN ═══ -->
+      <section id="startScreen" class="screen screen-start">
+        <div class="start-shell">
+
+          <div class="brand-row">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-text" data-lang-en>Transparent Star · Resident Entry</span>
+            <span class="brand-text" data-lang-cn>透明星 · 居民登錄入口</span>
+          </div>
+
+          <div class="start-visual" aria-hidden="true">
+            <div class="avatar-preview" data-avatar="./assets/results/清醒觀察型.webp"></div>
+            <div class="avatar-preview" data-avatar="./assets/results/真誠暖場型.webp"></div>
+            <div class="avatar-preview" data-avatar="./assets/results/低頻發光型.webp"></div>
+          </div>
+
+          <h1>
+            <span data-lang-en>Which Transparent Star Resident Are You?</span>
+            <span data-lang-cn>你是哪一種<br>透明星居民？</span>
+          </h1>
+
+          <p class="lead">
+            <span data-lang-en>Answer 16 everyday social choices and find out which kind of resident you would become on Transparent Star.</span>
+            <span data-lang-cn>回答 16 個日常社交選擇，看看你在透明星會成為哪一類居民。</span>
+          </p>
+
+          <button id="startBtn" class="primary-btn" disabled>
+            <span data-lang-en>Loading…</span>
+            <span data-lang-cn>載入中…</span>
+          </button>
+
+          <p class="start-note">
+            <span data-lang-en>No right or wrong answers · 2 min</span>
+            <span data-lang-cn>沒有對錯 · 約 2 分鐘</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- ═══ QUIZ SCREEN ═══ -->
+      <section id="quizScreen" class="screen screen-quiz hidden">
+
+        <header class="quiz-header">
+          <div class="progress-wrap">
+            <span id="progressText" class="progress-label">1 / 16</span>
+            <div class="progress-track" aria-hidden="true">
+              <span id="progressBar" class="progress-fill"></span>
+            </div>
+          </div>
+          <button id="restartBtn" class="ghost-btn" type="button">
+            <span data-lang-en>Restart</span>
+            <span data-lang-cn>重新開始</span>
+          </button>
+        </header>
+
+        <main class="quiz-main">
+          <div class="card-stage">
+            <article class="question-card" id="questionCard" aria-live="polite">
+              <div class="card-inner">
+                <p id="questionKicker" class="question-kicker"></p>
+                <h2 id="questionText" class="question-text">Loading…</h2>
+              </div>
+            </article>
+          </div>
+
+          <div class="option-row" aria-label="Options">
+            <button id="leftOption" class="option-btn option-left" type="button">
+              <span class="option-arrow" aria-hidden="true">←</span>
+              <span class="option-label" id="leftLabel"></span>
+            </button>
+            <button id="rightOption" class="option-btn option-right" type="button">
+              <span class="option-label" id="rightLabel"></span>
+              <span class="option-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+
+          <p class="swipe-hint" aria-hidden="true">
+            <span data-lang-en>← swipe or tap to choose →</span>
+            <span data-lang-cn>← 滑動或點擊選擇 →</span>
+          </p>
+        </main>
+      </section>
+
+      <!-- ═══ RESULT SCREEN ═══ -->
+      <section id="resultScreen" class="screen screen-result hidden">
+        <main class="result-wrap">
+
+          <article class="rc-card" id="resultCard">
+
+            <!-- Top colour zone -->
+            <div class="rc-hero" id="rcHero">
+              <!-- Type code badge — 4-letter resident code (e.g. HACT) -->
+              <div class="rc-type-badge" aria-hidden="true">
+                <span id="resultTypeCode" class="rc-type-code"></span>
+                <span class="rc-type-divider"></span>
+                <span class="rc-type-label" data-lang-en>TYPE</span>
+                <span class="rc-type-label" data-lang-cn>類型</span>
+              </div>
+
+              <!-- Flavour text — vertical alongside image -->
+              <p id="rcFlavour" class="rc-flavour" aria-hidden="true"></p>
+
+              <!-- Character image -->
+              <div id="resultImage" class="rc-image" role="img" aria-label=""></div>
+
+              <!-- Small thumbnail card (bottom-right) -->
+              <div id="resultThumb" class="rc-thumb" aria-hidden="true"></div>
+            </div>
+
+            <!-- Big name bar -->
+            <div class="rc-name-bar" id="rcNameBar">
+              <span id="resultOccupation" class="rc-occupation-inline"></span>
+              <h2 id="resultName" class="rc-name"></h2>
+            </div>
+
+            <!-- Badge row -->
+            <div class="rc-badges">
+              <div class="rc-badge rc-badge-trait">
+                <span class="rc-badge-deco" aria-hidden="true">✦</span>
+                <span class="rc-badge-label" data-lang-en>Trait</span>
+                <span class="rc-badge-label" data-lang-cn>特質</span>
+                <strong id="resultTrait" class="rc-badge-value"></strong>
+                <span class="rc-badge-deco" aria-hidden="true">✦</span>
+              </div>
+              <div class="rc-badge rc-badge-strength">
+                <span class="rc-badge-deco" aria-hidden="true">✦</span>
+                <span class="rc-badge-label" data-lang-en>Strength</span>
+                <span class="rc-badge-label" data-lang-cn>優勢</span>
+                <strong id="resultStrength" class="rc-badge-value"></strong>
+                <span class="rc-badge-deco" aria-hidden="true">✦</span>
+              </div>
+            </div>
+
+            <!-- Story section -->
+            <div class="rc-story-zone">
+              <h3 id="resultDayTitle" class="rc-story-title"></h3>
+              <p id="resultDayStory" class="rc-story-body"></p>
+            </div>
+
+            <!-- Signature moves -->
+            <div class="rc-moves-zone">
+              <h3 class="rc-moves-title">
+                <span aria-hidden="true">★</span>
+                <span data-lang-en>Signature Moves</span>
+                <span data-lang-cn>拿手好戲</span>
+              </h3>
+              <ol id="signatureMoveList" class="rc-moves-list"></ol>
+            </div>
+
+            <!-- Actions -->
+            <div class="rc-actions">
+              <button id="againBtn" class="primary-btn" type="button">
+                <span data-lang-en>Retake Test</span>
+                <span data-lang-cn>重新測試</span>
+              </button>
+              <button id="saveBtn" class="ghost-btn" type="button">
+                <span data-lang-en>Save Image</span>
+                <span data-lang-cn>保存圖片分享</span>
+              </button>
+            </div>
+
+          </article>
+        </main>
+      </section>
+
+    </div><!-- /app -->
+
+    <script src="./game.js?v=14" defer></script>
+    <script>
+      // Star canvas animation
+      (function () {
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        let W, H;
+
+        function resize() {
+          W = canvas.width = window.innerWidth;
+          H = canvas.height = window.innerHeight;
+          initStars();
+        }
+
+        function initStars() {
+          stars = [];
+          const count = Math.floor((W * H) / 5000);
+          for (let i = 0; i < count; i++) {
+            stars.push({
+              x: Math.random() * W,
+              y: Math.random() * H,
+              r: Math.random() * 1.2 + 0.2,
+              a: Math.random(),
+              speed: Math.random() * 0.003 + 0.001,
+              phase: Math.random() * Math.PI * 2
+            });
+          }
+        }
+
+        function draw(t) {
+          ctx.clearRect(0, 0, W, H);
+          stars.forEach(s => {
+            const alpha = s.a * (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(220, 210, 180, ${alpha})`;
+            ctx.fill();
+          });
+          requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        requestAnimationFrame(draw);
+      })();
+    </script>
+  </body>
+</html>

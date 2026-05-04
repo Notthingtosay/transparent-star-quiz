@@ -1,0 +1,26 @@
+# PNG backup (original files, not needed for deployment)
+assets/results/png-backup/
+
+# Design documents (not needed for deployment)
+*.docx
+*.webm
+Transparent_Star_*.md
+透明星_*策划案*.md
+透明星_*实现说明*.md
+results_preview.html
+透明星_cards.json
+render_result_cards_cn/
+
+# Playwright test artifacts
+.playwright-mcp/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Node (if any)
+node_modules/

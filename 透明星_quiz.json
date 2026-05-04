@@ -1,0 +1,280 @@
+{
+  "title": "Which Transparent Star Resident Are You?",
+  "subtitle": "Find out what kind of resident you would become on Transparent Star.",
+  "axes": {
+    "visibility": {
+      "label": "Would you make yourself visible?",
+      "labelCn": "你會讓自己被看見嗎？"
+    },
+    "activity": {
+      "label": "Would you keep your online trace alive?",
+      "labelCn": "你會維持自己在線上的痕跡嗎？"
+    },
+    "relation": {
+      "label": "Would you hold real relationships?",
+      "labelCn": "你會握住真實的關係嗎？"
+    },
+    "voice": {
+      "label": "Would you keep what you really wanted to say?",
+      "labelCn": "你會留住真正想說的話嗎？"
+    }
+  },
+  "questions": [
+    {
+      "id": "q01",
+      "axis": "visibility",
+      "text": "A group photo is posted. Everyone is tagged except you.",
+      "left": {
+        "label": "Leave a small reminder",
+        "value": "visible",
+        "labelCn": "留個小提醒"
+      },
+      "right": {
+        "label": "Let it pass",
+        "value": "hidden",
+        "labelCn": "算了，讓它過去"
+      },
+      "textCn": "合照被發出來，所有人都被標註，唯獨漏了你"
+    },
+    {
+      "id": "q02",
+      "axis": "visibility",
+      "text": "You suddenly want to post a real update, then wonder if it is unnecessary.",
+      "left": {
+        "label": "Post it directly",
+        "value": "visible",
+        "labelCn": "直接發出去"
+      },
+      "right": {
+        "label": "Save it in Notes",
+        "value": "hidden",
+        "labelCn": "存在備忘錄裡"
+      },
+      "textCn": "你突然想發一條真實的近況，又覺得好像沒必要"
+    },
+    {
+      "id": "q03",
+      "axis": "visibility",
+      "text": "The group chat has been silent for a long time. You have something that could restart it.",
+      "left": {
+        "label": "Drop it into the chat",
+        "value": "visible",
+        "labelCn": "丟進群裡"
+      },
+      "right": {
+        "label": "Just keep watching",
+        "value": "hidden",
+        "labelCn": "繼續潛水看著"
+      },
+      "textCn": "群聊安靜很久了，你手邊有個能重啟話題的東西"
+    },
+    {
+      "id": "q04",
+      "axis": "visibility",
+      "text": "Someone asks how you have been, and several people are listening.",
+      "left": {
+        "label": "Answer with detail",
+        "value": "visible",
+        "labelCn": "詳細說一說"
+      },
+      "right": {
+        "label": "Say nothing special",
+        "value": "hidden",
+        "labelCn": "說沒什麼特別的"
+      },
+      "textCn": "有人問你最近過得怎麼樣，旁邊好幾個人也在聽"
+    },
+    {
+      "id": "q05",
+      "axis": "activity",
+      "text": "The system reminds you: you have left no interaction trace today.",
+      "left": {
+        "label": "Refresh your presence",
+        "value": "active",
+        "labelCn": "刷一下存在感"
+      },
+      "right": {
+        "label": "Turn off the reminder",
+        "value": "quiet",
+        "labelCn": "把提醒關掉"
+      },
+      "textCn": "系統提醒你：今天還沒有留下任何互動痕跡"
+    },
+    {
+      "id": "q06",
+      "axis": "activity",
+      "text": "Someone messages you before sleep. You are already exhausted.",
+      "left": {
+        "label": "Reply before sleeping",
+        "value": "active",
+        "labelCn": "睡前回完"
+      },
+      "right": {
+        "label": "Leave it for tomorrow",
+        "value": "quiet",
+        "labelCn": "明天再說"
+      },
+      "textCn": "睡前有人傳訊息給你，你已經很累了"
+    },
+    {
+      "id": "q07",
+      "axis": "activity",
+      "text": "Your feed suddenly becomes lively. Everyone seems to be reacting to everyone.",
+      "left": {
+        "label": "Like and comment too",
+        "value": "active",
+        "labelCn": "也去按讚留言"
+      },
+      "right": {
+        "label": "Scroll past quietly",
+        "value": "quiet",
+        "labelCn": "安靜滑過去"
+      },
+      "textCn": "你的動態牆突然熱鬧起來，好像所有人都在互相回應"
+    },
+    {
+      "id": "q08",
+      "axis": "activity",
+      "text": "Your daily task still needs three interactions to keep your visibility rank safe.",
+      "left": {
+        "label": "Complete the task",
+        "value": "active",
+        "labelCn": "完成任務"
+      },
+      "right": {
+        "label": "Leave it unfinished",
+        "value": "quiet",
+        "labelCn": "放著不管"
+      },
+      "textCn": "每日任務還差三個互動才能保住存在值排名"
+    },
+    {
+      "id": "q09",
+      "axis": "relation",
+      "text": "A friend says their day was terrible, but you still have many things to do.",
+      "left": {
+        "label": "Listen properly first",
+        "value": "connected",
+        "labelCn": "先好好聽完"
+      },
+      "right": {
+        "label": "Send an emoji first",
+        "value": "solo",
+        "labelCn": "先發個表情符號"
+      },
+      "textCn": "朋友說今天過得很糟，但你手邊還有很多事"
+    },
+    {
+      "id": "q10",
+      "axis": "relation",
+      "text": "You see the name of an old friend who has been quiet for months.",
+      "left": {
+        "label": "Ask how they are",
+        "value": "connected",
+        "labelCn": "問問他最近如何"
+      },
+      "right": {
+        "label": "Do not disturb them",
+        "value": "solo",
+        "labelCn": "不打擾他"
+      },
+      "textCn": "看到一個安靜好幾個月的舊友的名字"
+    },
+    {
+      "id": "q11",
+      "axis": "relation",
+      "text": "Someone says something in a group chat and nobody responds.",
+      "left": {
+        "label": "Catch their sentence",
+        "value": "connected",
+        "labelCn": "接住他的話"
+      },
+      "right": {
+        "label": "Wait for someone else",
+        "value": "solo",
+        "labelCn": "等別人先接"
+      },
+      "textCn": "有人在群聊裡說了一句話，沒有人回應"
+    },
+    {
+      "id": "q12",
+      "axis": "relation",
+      "text": "Someone asks for help privately. Answering properly will take time.",
+      "left": {
+        "label": "Make time for them",
+        "value": "connected",
+        "labelCn": "為他騰出時間"
+      },
+      "right": {
+        "label": "Keep it brief",
+        "value": "solo",
+        "labelCn": "簡短回應就好"
+      },
+      "textCn": "有人私訊求助，好好回答需要花不少時間"
+    },
+    {
+      "id": "q13",
+      "axis": "voice",
+      "text": "You want to say something honest, but it may make the atmosphere awkward.",
+      "left": {
+        "label": "Say it honestly",
+        "value": "true",
+        "labelCn": "誠實說出來"
+      },
+      "right": {
+        "label": "Turn it into a joke",
+        "value": "safe",
+        "labelCn": "用玩笑帶過去"
+      },
+      "textCn": "你想說一句真話，但可能會讓氣氛變得尷尬"
+    },
+    {
+      "id": "q14",
+      "axis": "voice",
+      "text": "The system says your paragraph contains low-value emotion and can be optimized.",
+      "left": {
+        "label": "Keep the original",
+        "value": "true",
+        "labelCn": "保留原話"
+      },
+      "right": {
+        "label": "Use one-click polish",
+        "value": "safe",
+        "labelCn": "使用一鍵潤色"
+      },
+      "textCn": "系統說你的段落含有低價值情緒，可以優化"
+    },
+    {
+      "id": "q15",
+      "axis": "voice",
+      "text": "Someone misunderstands you in the comments. Explaining may make it worse.",
+      "left": {
+        "label": "Explain clearly",
+        "value": "true",
+        "labelCn": "把話說清楚"
+      },
+      "right": {
+        "label": "Delete it instead",
+        "value": "safe",
+        "labelCn": "直接刪掉"
+      },
+      "textCn": "有人在留言區誤解你，解釋可能越描越黑"
+    },
+    {
+      "id": "q16",
+      "axis": "voice",
+      "text": "You may leave one last sentence for Transparent Star.",
+      "left": {
+        "label": "I am still here",
+        "value": "true",
+        "labelCn": "我仍在這裡"
+      },
+      "right": {
+        "label": "As long as everyone is fine",
+        "value": "safe",
+        "labelCn": "大家沒事就好"
+      },
+      "textCn": "你可以為透明星留下最後一句話"
+    }
+  ]
+}
