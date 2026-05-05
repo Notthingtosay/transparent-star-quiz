@@ -287,7 +287,7 @@ function answerCurrentQuestion(side) {
 
 function finishQuiz() {
   els.progressBar.style.width = "100%";
-  const resultKey = buildResultKey(quizState.scores);
+  const resultKey = buildResultKey(quizState.scores, quizState.answers);
   const result = resultsData.results[resultKey];
   quizState.finalResult = { key: resultKey, ...result };
   saveQuizSession(quizState);
@@ -307,16 +307,24 @@ function finishQuiz() {
   });
 }
 
-function buildResultKey(scores) {
-  return AXIS_ORDER.map((axis) => getAxisWinner(axis, scores[axis])).join("_");
+function buildResultKey(scores, answers) {
+  return AXIS_ORDER.map((axis) => getAxisWinner(axis, scores[axis], answers)).join("_");
 }
 
-function getAxisWinner(axis, score) {
+function getAxisWinner(axis, score, answers) {
   const sides = Object.entries(score);
   const [firstSide, firstScore] = sides[0];
   const [secondSide, secondScore] = sides[1];
   if (firstScore > secondScore) return firstSide;
   if (secondScore > firstScore) return secondSide;
+
+  /* 2-2 tie: break by the user's FIRST answer on this axis instead of a
+     hard-coded constant. Hard-coded tie-breakers concentrated ~22% of all
+     traffic onto a single result; this spreads ties roughly 50/50. */
+  if (answers && answers.length) {
+    const firstAnswer = answers.find((a) => a.axis === axis);
+    if (firstAnswer && firstAnswer.value) return firstAnswer.value;
+  }
   return TIE_BREAKERS[axis];
 }
 
