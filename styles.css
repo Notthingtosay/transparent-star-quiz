@@ -916,6 +916,39 @@ body[data-lang="en"] .rc-name {
   padding-top: 16px;
 }
 
+/* ── QR code share section ── */
+.rc-qr-section {
+  background: #0b0c18;
+  padding: 0 20px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.rc-qr-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.06em;
+}
+
+.rc-qr-code {
+  background: #fff;
+  padding: 7px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  line-height: 0;
+}
+
+.rc-qr-code canvas,
+.rc-qr-code img {
+  display: block;
+  width: 76px;
+  height: 76px;
+}
+
 /* ── Responsive ── */
 @media (max-width: 480px) {
   .screen-result { padding: 48px 12px 48px; }

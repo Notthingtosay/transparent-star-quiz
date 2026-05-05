@@ -132,6 +132,7 @@ function cacheElements() {
     "signatureMoveList",
     "againBtn",
     "saveBtn",
+    "qrCode",
     "langToggle"
   ].forEach((id) => {
     els[id] = document.getElementById(id);
@@ -360,6 +361,9 @@ function renderResult(result) {
   /* signature moves */
   renderSignatureMoves(moves || []);
 
+  /* QR code */
+  generateQrCode();
+
   setSaveButtonLabel();
 }
 
@@ -370,6 +374,21 @@ function renderSignatureMoves(moves) {
     item.textContent = text;
     els.signatureMoveList.appendChild(item);
   });
+}
+
+function generateQrCode() {
+  if (typeof qrcode === "undefined") return;
+  const url = window.location.origin + window.location.pathname;
+  try {
+    const qr = qrcode(0, "M");
+    qr.addData(url);
+    qr.make();
+    els.qrCode.innerHTML = qr.createImgTag(3);
+  } catch {
+    /* QR generation failed — hide the section */
+    const section = els.qrCode.closest(".rc-qr-section");
+    if (section) section.style.display = "none";
+  }
 }
 
 function hydratePreviewAvatars() {
@@ -649,6 +668,9 @@ async function saveOnMobile(result) {
   ctx.textAlign = "center";
   ctx.fillText("透明星居民測驗 · Transparent Star Quiz", W / 2, H - 8);
 
+  /* ── QR code (bottom-right corner) ── */
+  await drawQrOnCanvas(ctx, W, H);
+
   /* Export & share */
   const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png", 0.9));
   if (!blob) throw new Error("toBlob failed");
@@ -709,6 +731,49 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.lineTo(x, y + r);
   ctx.arcTo(x, y, x + r, y, r);
   ctx.closePath();
+}
+
+/* Helper: draw QR code on Canvas 2D (for mobile share card) */
+async function drawQrOnCanvas(ctx, W, H) {
+  if (typeof qrcode === "undefined") return;
+  const url = window.location.origin + window.location.pathname;
+  try {
+    const qr = qrcode(0, "M");
+    qr.addData(url);
+    qr.make();
+    const qrDataUrl = qr.createDataURL(4);
+    const qrImg = await loadImage(qrDataUrl);
+
+    const qrSize = 70;
+    const qrX = W - qrSize - 16;
+    const qrY = H - qrSize - 42;
+
+    /* White background with rounded corners */
+    ctx.fillStyle = "#fff";
+    roundRect(ctx, qrX - 5, qrY - 5, qrSize + 10, qrSize + 10, 10);
+    ctx.fill();
+
+    /* QR code image */
+    ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
+
+    /* Label */
+    ctx.fillStyle = "rgba(255,255,255,0.4)";
+    ctx.font = "500 9px 'Space Grotesk', sans-serif";
+    ctx.textAlign = "right";
+    ctx.fillText("Scan to try · 掃碼測試 →", qrX - 6, qrY - 10);
+  } catch {
+    /* QR draw failed — gracefully skip */
+  }
+}
+
+/* Helper: load image from URL */
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
 }
 
 function showScreen(name) {
