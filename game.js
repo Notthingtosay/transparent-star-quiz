@@ -501,25 +501,7 @@ async function saveResultAsImage() {
     const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png", 0.92));
     if (!blob) throw new Error("toBlob failed");
 
-    const file = new File([blob], filename, { type: "image/png" });
-
-    if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-      try {
-        await navigator.share({
-          files: [file],
-          title: pickLocalized(result, "name"),
-          text: currentLang === "cn"
-            ? `我是透明星居民：${result.nameCn || result.name}`
-            : `My Transparent Star resident: ${result.name}`
-        });
-        setSaveButtonLabel("shared");
-        setTimeout(() => setSaveButtonLabel(), 2000);
-        return;
-      } catch (err) {
-        if (err && err.name === "AbortError") { setSaveButtonLabel(); return; }
-      }
-    }
-
+    /* Direct download */
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -752,7 +734,7 @@ async function drawQrOnCanvas(ctx, W, H) {
 
     const qrSize = 56;
     const qrX = (W - qrSize) / 2;
-    const qrY = H - qrSize - 24;
+    const qrY = H - qrSize - 30;
 
     /* White background with rounded corners */
     ctx.fillStyle = "#fff";
