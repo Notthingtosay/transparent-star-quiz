@@ -3,278 +3,278 @@
   "subtitle": "Find out what kind of resident you would become on Transparent Star.",
   "axes": {
     "visibility": {
-      "label": "Would you make yourself visible?",
-      "labelCn": "你會讓自己被看見嗎？"
+      "label": "Do you let others see the real you?",
+      "labelCn": "你願意讓別人看見你嗎？"
     },
     "activity": {
-      "label": "Would you keep your online trace alive?",
-      "labelCn": "你會維持自己在線上的痕跡嗎？"
+      "label": "Do you keep your presence alive online?",
+      "labelCn": "你會保持自己在線上的存在感嗎？"
     },
     "relation": {
-      "label": "Would you hold real relationships?",
-      "labelCn": "你會握住真實的關係嗎？"
+      "label": "Do you reach out to people around you?",
+      "labelCn": "你會主動靠近身邊的人嗎？"
     },
     "voice": {
-      "label": "Would you keep what you really wanted to say?",
-      "labelCn": "你會留住真正想說的話嗎？"
+      "label": "Do you say what you really mean?",
+      "labelCn": "你會說出心裡真正想說的話嗎？"
     }
   },
   "questions": [
     {
       "id": "q01",
       "axis": "visibility",
-      "text": "A group photo is posted. Everyone is tagged except you.",
+      "text": "You post a photo you really like, but after an hour no one has liked it.",
+      "textCn": "你發了一張自己很滿意的照片，過了一小時沒人點讚。",
       "left": {
-        "label": "Leave a small reminder",
-        "value": "visible",
-        "labelCn": "留個小提醒"
+        "label": "Take it down quietly",
+        "value": "hidden",
+        "labelCn": "默默刪掉，假裝沒事"
       },
       "right": {
-        "label": "Let it pass",
-        "value": "hidden",
-        "labelCn": "算了，讓它過去"
-      },
-      "textCn": "合照被發出來，所有人都被標註，唯獨漏了你"
+        "label": "Leave it — it's for myself anyway",
+        "value": "visible",
+        "labelCn": "留著，本來就是發給自己看的"
+      }
     },
     {
       "id": "q02",
       "axis": "visibility",
-      "text": "You suddenly want to post a real update, then wonder if it is unnecessary.",
+      "text": "A group chat is doing introductions. Everyone's already said something.",
+      "textCn": "你被拉進一個新群，大家都在自我介紹。",
       "left": {
-        "label": "Post it directly",
+        "label": "Say a quick hi and introduce yourself",
         "value": "visible",
-        "labelCn": "直接發出去"
+        "labelCn": "打個招呼，簡單介紹自己"
       },
       "right": {
-        "label": "Save it in Notes",
+        "label": "Stay silent and observe first",
         "value": "hidden",
-        "labelCn": "存在備忘錄裡"
-      },
-      "textCn": "你突然想發一條真實的近況，又覺得好像沒必要"
+        "labelCn": "先不說話，看看風向"
+      }
     },
     {
       "id": "q03",
       "axis": "visibility",
-      "text": "The group chat has been silent for a long time. You have something that could restart it.",
+      "text": "Everyone's posting year-end summaries. You have things you'd like to share too.",
+      "textCn": "大家都在發年度回顧，你也有一些想說的。",
       "left": {
-        "label": "Drop it into the chat",
-        "value": "visible",
-        "labelCn": "丟進群裡"
+        "label": "Not necessary — no one needs to know everything",
+        "value": "hidden",
+        "labelCn": "算了，不用什麼都讓別人知道"
       },
       "right": {
-        "label": "Just keep watching",
-        "value": "hidden",
-        "labelCn": "繼續潛水看著"
-      },
-      "textCn": "群聊安靜很久了，你手邊有個能重啟話題的東西"
+        "label": "Write one too — it's nice to record the year",
+        "value": "visible",
+        "labelCn": "也寫一篇，記錄一下這一年"
+      }
     },
     {
       "id": "q04",
       "axis": "visibility",
-      "text": "Someone asks how you have been, and several people are listening.",
+      "text": "Someone compliments you in a public comment. Everyone can see it.",
+      "textCn": "有人在公開評論區稱讚你，所有人都看得到。",
       "left": {
-        "label": "Answer with detail",
+        "label": "Reply openly and chat a bit",
         "value": "visible",
-        "labelCn": "詳細說一說"
+        "labelCn": "大方回覆，順便聊兩句"
       },
       "right": {
-        "label": "Say nothing special",
+        "label": "Say thanks privately instead",
         "value": "hidden",
-        "labelCn": "說沒什麼特別的"
-      },
-      "textCn": "有人問你最近過得怎麼樣，旁邊好幾個人也在聽"
+        "labelCn": "私訊道謝就好，不用公開"
+      }
     },
     {
       "id": "q05",
       "axis": "activity",
-      "text": "The system reminds you: you have left no interaction trace today.",
+      "text": "You realise you haven't interacted with anyone today — no likes, no replies.",
+      "textCn": "你今天還沒給任何人點讚或留言，社交足跡一片空白。",
       "left": {
-        "label": "Refresh your presence",
+        "label": "Scroll through and interact with a few posts",
         "value": "active",
-        "labelCn": "刷一下存在感"
+        "labelCn": "去刷一下，給幾個人點讚留言"
       },
       "right": {
-        "label": "Turn off the reminder",
+        "label": "It's fine. Not every day needs interaction",
         "value": "quiet",
-        "labelCn": "把提醒關掉"
-      },
-      "textCn": "系統提醒你：今天還沒有留下任何互動痕跡"
+        "labelCn": "沒差，不是每天都必須互動"
+      }
     },
     {
       "id": "q06",
       "axis": "activity",
-      "text": "Someone messages you before sleep. You are already exhausted.",
+      "text": "Right before bed, you see a message from hours ago. It's not urgent.",
+      "textCn": "睡前看到有人幾小時前發了訊息給你，不是急事。",
       "left": {
-        "label": "Reply before sleeping",
-        "value": "active",
-        "labelCn": "睡前回完"
+        "label": "Reply tomorrow — it's too late",
+        "value": "quiet",
+        "labelCn": "太晚了，明天再回"
       },
       "right": {
-        "label": "Leave it for tomorrow",
-        "value": "quiet",
-        "labelCn": "明天再說"
-      },
-      "textCn": "睡前有人傳訊息給你，你已經很累了"
+        "label": "Reply briefly so they don't feel ignored",
+        "value": "active",
+        "labelCn": "簡單回一下，讓對方知道你看到了"
+      }
     },
     {
       "id": "q07",
       "axis": "activity",
-      "text": "Your feed suddenly becomes lively. Everyone seems to be reacting to everyone.",
+      "text": "A friend shares a long article in the group and says it really hit them.",
+      "textCn": "朋友在群裡分享了一篇文章，說很有感觸。",
       "left": {
-        "label": "Like and comment too",
+        "label": "Read it and leave my thoughts",
         "value": "active",
-        "labelCn": "也去按讚留言"
+        "labelCn": "點開看完，回覆我的想法"
       },
       "right": {
-        "label": "Scroll past quietly",
+        "label": "Seen it, but not sure what to say",
         "value": "quiet",
-        "labelCn": "安靜滑過去"
-      },
-      "textCn": "你的動態牆突然熱鬧起來，好像所有人都在互相回應"
+        "labelCn": "已讀，但不知道回什麼就不回了"
+      }
     },
     {
       "id": "q08",
       "axis": "activity",
-      "text": "Your daily task still needs three interactions to keep your visibility rank safe.",
+      "text": "You haven't posted anything on social media for over a week.",
+      "textCn": "你已經超過一週沒在社交平台發任何東西了。",
       "left": {
-        "label": "Complete the task",
-        "value": "active",
-        "labelCn": "完成任務"
+        "label": "Why force it? Nothing to say means nothing to say",
+        "value": "quiet",
+        "labelCn": "沒想說的就不用勉強，不急"
       },
       "right": {
-        "label": "Leave it unfinished",
-        "value": "quiet",
-        "labelCn": "放著不管"
-      },
-      "textCn": "每日任務還差三個互動才能保住存在值排名"
+        "label": "Share something small — just to keep a presence",
+        "value": "active",
+        "labelCn": "隨便發點什麼，保持一點存在感"
+      }
     },
     {
       "id": "q09",
       "axis": "relation",
-      "text": "A friend says their day was terrible, but you still have many things to do.",
+      "text": "A friend suddenly messages: 'I'm having a really bad day.' But you're swamped.",
+      "textCn": "朋友突然說「今天心情很差」，但你手邊正在忙。",
       "left": {
-        "label": "Listen properly first",
+        "label": "Pause and listen properly first",
         "value": "connected",
-        "labelCn": "先好好聽完"
+        "labelCn": "先放下手邊事，好好聽他說完"
       },
       "right": {
-        "label": "Send an emoji first",
+        "label": "Send a hug sticker and say 'let's talk later'",
         "value": "solo",
-        "labelCn": "先發個表情符號"
-      },
-      "textCn": "朋友說今天過得很糟，但你手邊還有很多事"
+        "labelCn": "先發個抱抱貼圖，說忙完再聊"
+      }
     },
     {
       "id": "q10",
       "axis": "relation",
-      "text": "You see the name of an old friend who has been quiet for months.",
+      "text": "You see a post from an old friend you haven't talked to in months. They seem down.",
+      "textCn": "看到一個幾個月沒聯絡的朋友發了動態，看起來過得不太好。",
       "left": {
-        "label": "Ask how they are",
-        "value": "connected",
-        "labelCn": "問問他最近如何"
+        "label": "Don't know what to say — just scroll past",
+        "value": "solo",
+        "labelCn": "不知道怎麼開口，默默滑過去"
       },
       "right": {
-        "label": "Do not disturb them",
-        "value": "solo",
-        "labelCn": "不打擾他"
-      },
-      "textCn": "看到一個安靜好幾個月的舊友的名字"
+        "label": "DM them: 'Hey, how have you been?'",
+        "value": "connected",
+        "labelCn": "發個私訊：最近還好嗎？"
+      }
     },
     {
       "id": "q11",
       "axis": "relation",
-      "text": "Someone says something in a group chat and nobody responds.",
+      "text": "Someone says something in a group chat. Minutes pass. No one replies.",
+      "textCn": "有人在群裡說了一句話，過了好幾分鐘都沒人回應。",
       "left": {
-        "label": "Catch their sentence",
+        "label": "Jump in — don't let them feel invisible",
         "value": "connected",
-        "labelCn": "接住他的話"
+        "labelCn": "回他一句，不要讓他一個人尷尬"
       },
       "right": {
-        "label": "Wait for someone else",
+        "label": "Wait for someone else to reply first",
         "value": "solo",
-        "labelCn": "等別人先接"
-      },
-      "textCn": "有人在群聊裡說了一句話，沒有人回應"
+        "labelCn": "等別人先回，我不擅長接話"
+      }
     },
     {
       "id": "q12",
       "axis": "relation",
-      "text": "Someone asks for help privately. Answering properly will take time.",
+      "text": "A friend invites you out this weekend, but you're already drained from the week.",
+      "textCn": "朋友約你週末出去，但你這週已經很累了。",
       "left": {
-        "label": "Make time for them",
-        "value": "connected",
-        "labelCn": "為他騰出時間"
+        "label": "Politely decline — catch up next time",
+        "value": "solo",
+        "labelCn": "婉拒，說下次再約"
       },
       "right": {
-        "label": "Keep it brief",
-        "value": "solo",
-        "labelCn": "簡短回應就好"
-      },
-      "textCn": "有人私訊求助，好好回答需要花不少時間"
+        "label": "Go anyway — it's rare everyone's free",
+        "value": "connected",
+        "labelCn": "還是去吧，難得大家有空"
+      }
     },
     {
       "id": "q13",
       "axis": "voice",
-      "text": "You want to say something honest, but it may make the atmosphere awkward.",
+      "text": "A group chat is debating something, and your opinion is very different.",
+      "textCn": "群裡在討論一件事，你的想法跟大家不太一樣。",
       "left": {
-        "label": "Say it honestly",
+        "label": "Share my honest view and discuss it calmly",
         "value": "true",
-        "labelCn": "誠實說出來"
+        "labelCn": "說出我真實的看法，理性討論"
       },
       "right": {
-        "label": "Turn it into a joke",
+        "label": "Stay quiet — it probably won't change anything",
         "value": "safe",
-        "labelCn": "用玩笑帶過去"
-      },
-      "textCn": "你想說一句真話，但可能會讓氣氛變得尷尬"
+        "labelCn": "算了，說了大概也沒用"
+      }
     },
     {
       "id": "q14",
       "axis": "voice",
-      "text": "The system says your paragraph contains low-value emotion and can be optimized.",
+      "text": "Someone in a chat says something that bothers you. It wasn't directed at you, but it stings.",
+      "textCn": "有人在群裡說了一句讓你有點不舒服的話，不是針對你但聽了不太開心。",
       "left": {
-        "label": "Keep the original",
-        "value": "true",
-        "labelCn": "保留原話"
+        "label": "Let it go — not worth the drama",
+        "value": "safe",
+        "labelCn": "算了，小事不值得計較"
       },
       "right": {
-        "label": "Use one-click polish",
-        "value": "safe",
-        "labelCn": "使用一鍵潤色"
-      },
-      "textCn": "系統說你的段落含有低價值情緒，可以優化"
+        "label": "Message them privately and say how I felt",
+        "value": "true",
+        "labelCn": "私下跟他說，那句話讓我有點介意"
+      }
     },
     {
       "id": "q15",
       "axis": "voice",
-      "text": "Someone misunderstands you in the comments. Explaining may make it worse.",
+      "text": "You really want to thank a friend, but saying it directly feels a bit awkward.",
+      "textCn": "你想認真跟一個朋友說聲謝謝，但覺得突然講有點肉麻。",
       "left": {
-        "label": "Explain clearly",
+        "label": "Say it anyway — sincere words are never cringe",
         "value": "true",
-        "labelCn": "把話說清楚"
+        "labelCn": "還是說吧，真心話不怕肉麻"
       },
       "right": {
-        "label": "Delete it instead",
+        "label": "Wait for a better moment — when it feels natural",
         "value": "safe",
-        "labelCn": "直接刪掉"
-      },
-      "textCn": "有人在留言區誤解你，解釋可能越描越黑"
+        "labelCn": "等合適的時機再說，自然一點"
+      }
     },
     {
       "id": "q16",
       "axis": "voice",
-      "text": "You may leave one last sentence for Transparent Star.",
+      "text": "You and a friend disagree on something. The mood is getting a little tense.",
+      "textCn": "你跟朋友聊到一件事意見不合，氣氛有點僵。",
       "left": {
-        "label": "I am still here",
-        "value": "true",
-        "labelCn": "我仍在這裡"
+        "label": "Change the subject — keep the mood light",
+        "value": "safe",
+        "labelCn": "轉移話題，不要讓氣氛太難看"
       },
       "right": {
-        "label": "As long as everyone is fine",
-        "value": "safe",
-        "labelCn": "大家沒事就好"
-      },
-      "textCn": "你可以為透明星留下最後一句話"
+        "label": "Acknowledge it: 'We see this differently — want to talk it through?'",
+        "value": "true",
+        "labelCn": "直接說「我們想法好像不太一樣，聊聊？」"
+      }
     }
   ]
 }

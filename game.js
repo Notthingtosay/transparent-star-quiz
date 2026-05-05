@@ -3,8 +3,8 @@ const RESULTS_URL = "./透明星_results.json";
 
 const AXIS_ORDER = ["visibility", "activity", "relation", "voice"];
 const TIE_BREAKERS = {
-  visibility: "hidden",
-  activity: "quiet",
+  visibility: "visible",
+  activity: "active",
   relation: "connected",
   voice: "true"
 };
