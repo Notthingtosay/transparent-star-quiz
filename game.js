@@ -542,7 +542,7 @@ async function saveResultAsImage() {
 /* ── Mobile: draw share card with Canvas 2D ── */
 async function saveOnMobile(result) {
   const W = 420;
-  const H = 680;
+  const H = 740;
   const canvas = document.createElement("canvas");
   canvas.width = W;
   canvas.height = H;
@@ -627,15 +627,15 @@ async function saveOnMobile(result) {
   ctx.fillStyle = "rgba(255,255,255,0.75)";
   ctx.font = "600 13px 'Space Grotesk', sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText(occupation, W / 2, H - 140);
+  ctx.fillText(occupation, W / 2, H - 175);
   ctx.fillStyle = "#fff";
   ctx.font = "900 40px 'Noto Serif TC', serif";
-  ctx.fillText(name, W / 2, H - 100);
+  ctx.fillText(name, W / 2, H - 135);
 
   /* Trait badge */
   const trait = pickLocalized(result, "trait");
   const strength = pickLocalized(result, "strength");
-  const badgeY = H - 55;
+  const badgeY = H - 108;
   /* Left badge */
   roundRect(ctx, 60, badgeY - 22, 120, 40, 20);
   ctx.fillStyle = "rgba(255,255,255,0.18)";
@@ -666,7 +666,7 @@ async function saveOnMobile(result) {
   ctx.fillStyle = "rgba(255,255,255,0.25)";
   ctx.font = "600 10px 'Space Grotesk', sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText("透明星居民測驗 · Transparent Star Quiz", W / 2, H - 8);
+  ctx.fillText("透明星居民測驗 · Transparent Star Quiz", W / 2, H - 12);
 
   /* ── QR code (bottom-right corner) ── */
   await drawQrOnCanvas(ctx, W, H);
@@ -744,23 +744,23 @@ async function drawQrOnCanvas(ctx, W, H) {
     const qrDataUrl = qr.createDataURL(4);
     const qrImg = await loadImage(qrDataUrl);
 
-    const qrSize = 70;
-    const qrX = W - qrSize - 16;
-    const qrY = H - qrSize - 42;
+    const qrSize = 56;
+    const qrX = (W - qrSize) / 2;
+    const qrY = H - qrSize - 24;
 
     /* White background with rounded corners */
     ctx.fillStyle = "#fff";
-    roundRect(ctx, qrX - 5, qrY - 5, qrSize + 10, qrSize + 10, 10);
+    roundRect(ctx, qrX - 4, qrY - 4, qrSize + 8, qrSize + 8, 8);
     ctx.fill();
 
     /* QR code image */
     ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
 
-    /* Label */
-    ctx.fillStyle = "rgba(255,255,255,0.4)";
+    /* Label above QR */
+    ctx.fillStyle = "rgba(255,255,255,0.35)";
     ctx.font = "500 9px 'Space Grotesk', sans-serif";
-    ctx.textAlign = "right";
-    ctx.fillText("Scan to try · 掃碼測試 →", qrX - 6, qrY - 10);
+    ctx.textAlign = "center";
+    ctx.fillText("掃碼測試 · Scan to try", W / 2, qrY - 8);
   } catch {
     /* QR draw failed — gracefully skip */
   }
