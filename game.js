@@ -543,10 +543,12 @@ async function saveResultAsImage() {
 async function saveOnMobile(result) {
   const W = 420;
   const H = 740;
+  const scale = 2;
   const canvas = document.createElement("canvas");
-  canvas.width = W;
-  canvas.height = H;
+  canvas.width = W * scale;
+  canvas.height = H * scale;
   const ctx = canvas.getContext("2d");
+  ctx.scale(scale, scale);
 
   /* Theme colour from the card's data-theme attribute */
   const theme = els.resultCard.getAttribute("data-theme") || "teal";
@@ -573,46 +575,44 @@ async function saveOnMobile(result) {
   /* Draw character image from the DOM */
   const imgEl = els.resultImage.querySelector("img");
   if (imgEl && imgEl.complete && imgEl.naturalWidth > 0) {
-    /* Image dimensions: character arts are 1024×1536 (2:3 portrait) */
     const imgW = imgEl.naturalWidth;
     const imgH = imgEl.naturalHeight;
-    /* Scale to fill card width, position at top */
     const drawW = W;
     const drawH = (imgH / imgW) * W;
-    const drawY = -20; /* slight upward shift to show more of character */
+    const drawY = -20;
     ctx.drawImage(imgEl, 0, drawY, drawW, drawH);
   }
 
-  /* Dark overlay at bottom for text legibility */
-  const overlay = ctx.createLinearGradient(0, H * 0.45, 0, H);
+  /* Dark overlay — starts at 38% to leave more hero visible */
+  const overlayStart = H * 0.38;
+  const overlay = ctx.createLinearGradient(0, overlayStart, 0, H);
   overlay.addColorStop(0, "transparent");
-  overlay.addColorStop(0.5, "rgba(14,15,28,0.7)");
+  overlay.addColorStop(0.45, "rgba(14,15,28,0.65)");
   overlay.addColorStop(1, "rgba(14,15,28,0.95)");
   ctx.fillStyle = overlay;
-  ctx.fillRect(0, H * 0.45, W, H * 0.55);
+  ctx.fillRect(0, overlayStart, W, H - overlayStart);
 
   /* Type code badge (top-right) */
   const typeCode = getTypeCode(result.key);
   ctx.fillStyle = "rgba(10,10,18,0.8)";
   ctx.strokeStyle = "rgba(255,255,255,0.18)";
   ctx.lineWidth = 1;
-  roundRect(ctx, W - 70, 12, 58, 26, 6);
+  roundRect(ctx, W - 70, 14, 58, 26, 6);
   ctx.fill();
   ctx.stroke();
   ctx.fillStyle = "rgba(255,250,230,0.9)";
   ctx.font = "bold 14px 'Space Grotesk', sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText(typeCode, W - 41, 30);
+  ctx.fillText(typeCode, W - 41, 32);
 
   /* Flavour text (vertical, left side) */
   const traitCN = result.traitCn || result.trait || "";
   const strengthCN = result.strengthCn || result.strength || "";
   ctx.save();
-  ctx.fillStyle = "rgba(255,255,255,0.6)";
+  ctx.fillStyle = "rgba(255,255,255,0.55)";
   ctx.font = "bold 20px 'Noto Serif TC', serif";
   ctx.textAlign = "left";
-  /* Draw vertically */
-  const flavourY = 100;
+  const flavourY = 110;
   for (let i = 0; i < traitCN.length; i++) {
     ctx.fillText(traitCN[i], 16, flavourY + i * 26);
   }
@@ -621,39 +621,45 @@ async function saveOnMobile(result) {
   }
   ctx.restore();
 
-  /* Occupation + Name */
+  /* ── Text zone: generous vertical rhythm ── */
+
+  /* Occupation (small, light, above name) */
   const occupation = pickLocalized(result, "occupation");
   const name = pickLocalized(result, "name");
-  ctx.fillStyle = "rgba(255,255,255,0.75)";
+  ctx.fillStyle = "rgba(255,255,255,0.65)";
   ctx.font = "600 13px 'Space Grotesk', sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText(occupation, W / 2, H - 175);
+  ctx.fillText(occupation, W / 2, H - 280);
+
+  /* Name (bold, headline) */
   ctx.fillStyle = "#fff";
   ctx.font = "900 40px 'Noto Serif TC', serif";
-  ctx.fillText(name, W / 2, H - 135);
+  ctx.fillText(name, W / 2, H - 220);
 
-  /* Trait badge */
+  /* Trait + Strength badges (side-by-side, centered) */
   const trait = pickLocalized(result, "trait");
   const strength = pickLocalized(result, "strength");
-  const badgeY = H - 108;
-  /* Left badge */
+  const badgeY = H - 140;
+
+  /* Left badge — Trait */
   roundRect(ctx, 60, badgeY - 22, 120, 40, 20);
-  ctx.fillStyle = "rgba(255,255,255,0.18)";
+  ctx.fillStyle = "rgba(255,255,255,0.16)";
   ctx.fill();
-  ctx.strokeStyle = "rgba(255,255,255,0.3)";
+  ctx.strokeStyle = "rgba(255,255,255,0.28)";
   ctx.stroke();
   ctx.fillStyle = "rgba(255,255,255,0.5)";
   ctx.font = "700 9px 'Space Grotesk', sans-serif";
+  ctx.textAlign = "center";
   ctx.fillText(currentLang === "cn" ? "特質" : "Trait", 120, badgeY - 8);
   ctx.fillStyle = "#fff";
   ctx.font = "900 17px 'Noto Serif TC', serif";
   ctx.fillText(trait, 120, badgeY + 10);
 
-  /* Right badge */
+  /* Right badge — Strength */
   roundRect(ctx, W - 180, badgeY - 22, 120, 40, 20);
-  ctx.fillStyle = "rgba(255,255,255,0.18)";
+  ctx.fillStyle = "rgba(255,255,255,0.16)";
   ctx.fill();
-  ctx.strokeStyle = "rgba(255,255,255,0.3)";
+  ctx.strokeStyle = "rgba(255,255,255,0.28)";
   ctx.stroke();
   ctx.fillStyle = "rgba(255,255,255,0.5)";
   ctx.font = "700 9px 'Space Grotesk', sans-serif";
@@ -662,14 +668,14 @@ async function saveOnMobile(result) {
   ctx.font = "900 17px 'Noto Serif TC', serif";
   ctx.fillText(strength, W - 120, badgeY + 10);
 
+  /* ── QR code (centered, no label) ── */
+  await drawQrOnCanvas(ctx, W, H);
+
   /* Footer */
-  ctx.fillStyle = "rgba(255,255,255,0.25)";
+  ctx.fillStyle = "rgba(255,255,255,0.22)";
   ctx.font = "600 10px 'Space Grotesk', sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText("透明星居民測驗 · Transparent Star Quiz", W / 2, H - 12);
-
-  /* ── QR code (bottom-right corner) ── */
-  await drawQrOnCanvas(ctx, W, H);
+  ctx.fillText("透明星居民測驗 · Transparent Star Quiz", W / 2, H - 10);
 
   /* Export & share */
   const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png", 0.9));
@@ -755,12 +761,6 @@ async function drawQrOnCanvas(ctx, W, H) {
 
     /* QR code image */
     ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
-
-    /* Label above QR */
-    ctx.fillStyle = "rgba(255,255,255,0.35)";
-    ctx.font = "500 9px 'Space Grotesk', sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText("掃碼測試 · Scan to try", W / 2, qrY - 8);
   } catch {
     /* QR draw failed — gracefully skip */
   }
