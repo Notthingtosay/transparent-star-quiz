@@ -611,17 +611,17 @@ async function saveOnMobile(result) {
   ctx.fillStyle = "rgba(255,255,255,0.65)";
   ctx.font = "600 13px 'Space Grotesk', sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText(occupation, W / 2, H - 280);
+  ctx.fillText(occupation, W / 2, H - 310);
 
   /* Name (bold, headline) */
   ctx.fillStyle = "#fff";
   ctx.font = "900 40px 'Noto Serif TC', serif";
-  ctx.fillText(name, W / 2, H - 220);
+  ctx.fillText(name, W / 2, H - 250);
 
   /* Trait + Strength badges (side-by-side, centered) */
   const trait = pickLocalized(result, "trait");
   const strength = pickLocalized(result, "strength");
-  const badgeY = H - 140;
+  const badgeY = H - 170;
 
   /* Left badge — Trait */
   roundRect(ctx, 60, badgeY - 22, 120, 40, 20);
@@ -734,7 +734,8 @@ async function drawQrOnCanvas(ctx, W, H) {
 
     const qrSize = 56;
     const qrX = (W - qrSize) / 2;
-    const qrY = H - qrSize - 30;
+    /* sits well above the bottom edge — pair with badge/footer offsets below */
+    const qrY = H - qrSize - 60;
 
     /* White background with rounded corners */
     ctx.fillStyle = "#fff";
